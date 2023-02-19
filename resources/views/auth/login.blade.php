@@ -7,41 +7,48 @@
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full"
+                            placeholder="Felhasználónév"
+                            type="email"
+                            name="email" :value="old('email')"
+                            required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
+            <x-text-input id="password" class="block mt-1 w-full "
                             type="password"
                             name="password"
+                            placeholder="Jelszó"
                             required autocomplete="current-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
+        <div class="d-flex justify-content-between text-white" style="margin-top:38px; margin-bottom:38px;">
+            <div class="text-left">
                 <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                <span class="ml-2">{{ __('Emlékezz rám') }}</span>
+            </div>
+            <div class="text-right">
+                <a class="" href="{{ route('password.request') }}">
+                {{ __('Elfejtettet a jelszavadat?') }}
                 </a>
-            @endif
+            </div>
+        </div>
+        <x-primary-button>
+            <div class="">
+            {{ __('Bejelentkezés') }}
+            </div>
+        </x-primary-button>
+            <div class="block text-center">
+                <a href="{{route('register')}}" class="text-white">Még nem regisztrált?</a>
+            </div>
+        </div>
+        <div class="">
 
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
         </div>
     </form>
 </x-guest-layout>
