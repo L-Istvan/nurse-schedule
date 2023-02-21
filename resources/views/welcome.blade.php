@@ -75,9 +75,15 @@
 
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                 <a href="#" class="btn btn-primary">Go somewhere</a>
+
               </div>
             </div>
           </div>
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+
+            <button type="submit">Kijelentkezés</button>
+        </form>
           <!-- /.col-md-6 -->
         </div>
         <!-- /.row -->
