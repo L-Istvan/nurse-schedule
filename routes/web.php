@@ -14,13 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth');
+
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware(['auth', 'verified','nurse']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','headNurse'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
