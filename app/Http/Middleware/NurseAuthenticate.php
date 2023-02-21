@@ -21,7 +21,7 @@ class NurseAuthenticate
             $user = auth()->user();
 
             if ( $user->hasRole('headNurse') ) {
-                return redirect(route('dashboard'));
+                return redirect(route('/headNursePages/index'));
             }
             else if ( $user->hasRole('nurse') ) {
                 return $next($request);
@@ -29,6 +29,5 @@ class NurseAuthenticate
         }
 
     abort(403);  // permission denied error
-
     }
 }
