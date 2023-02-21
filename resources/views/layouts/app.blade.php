@@ -23,7 +23,11 @@
         @include('layouts.sidebar')
         @yield('content')
         @include('layouts.footer')
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
 
+            <button type="submit">Kijelentkezés</button>
+        </form>
         </div>
     </body>
 
