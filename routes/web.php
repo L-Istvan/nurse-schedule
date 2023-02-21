@@ -18,12 +18,18 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth');
 
 Route::get('/', function () {
+    return view('/nursePages/index');
+})->middleware(['auth', 'verified','nurse']);
+
+
+Route::get('/welcome', function () {
     return view('welcome');
 })->middleware(['auth', 'verified','nurse']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified','headNurse'])->name('dashboard');
+
+Route::get('/Főnővér', function () {
+    return view('/headNursePages/index');
+})->middleware(['auth', 'verified','headNurse'])->name('/headNursePages/index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
