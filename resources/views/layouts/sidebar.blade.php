@@ -20,11 +20,17 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Kezdőlap
               </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="exchange" class="nav-link">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Cserélés</p>
             </a>
           </li>
           <li class="nav-item">
@@ -43,3 +49,5 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+
+
