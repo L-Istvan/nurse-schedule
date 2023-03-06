@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth');
 
-Route::get('/', function () {
-    return view('/nursePages/index');
-})->middleware(['auth', 'verified','nurse']);
+Route::middleware('auth','verified','nurse')->group(function(){
+    Route::get('/', 'App\Http\Controllers\nurseIndexController@show');
+    Route::get('/getdata', [App\Http\Controllers\nurseIndexController::class, 'getData']);
+});
+
 
 
 Route::get('/welcome', function () {
