@@ -58,4 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Holiday::class);
     }
 
+    public function sickLeave(){
+        return $this->hasMany(SickLeave::class);
+    }
+
+    public function petition(){
+        return $this->hasMany(Petition::class);
+    }
 }
