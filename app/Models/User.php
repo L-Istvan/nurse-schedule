@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Dotenv\Util\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'rank',
     ];
 
     /**
@@ -46,4 +49,13 @@ class User extends Authenticatable
     public function hasRole(string $role):bool{
         return $this->getAttribute('role') === $role;
     }
+
+    public function post(){
+        return $this->hasMany(Post::class);
+    }
+
+    public function holiday(){
+        return $this->hasMany(Holiday::class);
+    }
+
 }
