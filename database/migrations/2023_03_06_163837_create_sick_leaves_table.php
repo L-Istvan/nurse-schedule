@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('sick_leaves', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('person_id');
             $table->date('date');
+            $table->boolean('accepted');
             $table->timestamps();
         });
     }
