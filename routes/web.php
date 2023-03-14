@@ -21,9 +21,8 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 Route::middleware('auth','verified','nurse')->group(function(){
     Route::get('/', 'App\Http\Controllers\nurseIndexController@show');
     Route::get('/getdata', [App\Http\Controllers\nurseIndexController::class, 'getData']);
+    Route::post('/sendCalendarData',[App\Http\Controllers\nurseIndexController::class,'store']);
 });
-
-
 
 Route::get('/welcome', function () {
     return view('welcome');
