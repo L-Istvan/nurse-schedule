@@ -65,4 +65,8 @@ class User extends Authenticatable
     public function petition(){
         return $this->hasMany(Petition::class);
     }
+
+    public function setting(){
+        return $this->hasMany(Setting::class);
+    }
 }
