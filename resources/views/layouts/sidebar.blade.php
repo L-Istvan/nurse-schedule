@@ -27,20 +27,38 @@
               </p>
             </a>
           </li>
+          @if (Auth::user()->role === "nurse")
+            <li class="nav-item">
+                <a href="exchange" class="nav-link">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>Cserélés</p>
+                </a>
+            </li>
+          @endif
+          @if (Auth::user()->role === "headNurse")
+            <li class="nav-item">
+                <a href="edit" class="nav-link">
+                    <i class="nav-icon fas fa-edit"></i>
+                    <p>Beosztás szerkesztés</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="addEmployer" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>Dolgozók</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="edit" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>Részletek</p>
+                </a>
+            </li>
+          @endif
           <li class="nav-item">
-            <a href="exchange" class="nav-link">
+            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="nav-icon fas fa-table"></i>
-                <p>Cserélés</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-                <p>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" style="color:white; border:0px solid white; background-color: transparent;">Kijelentkezés</button>
-                    </form>
-                </p>
+                <p>Kijelentkezés</p>
             </a>
           </li>
         </ul>
@@ -48,6 +66,10 @@
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
   </aside>
 
 

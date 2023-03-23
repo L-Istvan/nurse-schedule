@@ -1,3 +1,4 @@
+{{--
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -9,7 +10,7 @@
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
+  <footer class="main-footer no-print text-sm">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
       Anything you want
@@ -19,12 +20,11 @@
   </footer>
 </div>
 <!-- ./wrapper -->
-
 <!-- REQUIRED SCRIPTS -->
-
+--}}
 <!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+{{--<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>--}}
 <!-- Bootstrap 4 -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+{{--<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>--}}
 <!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+{{--<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>--}}
