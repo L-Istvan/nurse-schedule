@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Mail\WelcomeMail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,23 +18,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth');
 
 Route::middleware('auth','verified','nurse')->group(function(){
-    Route::get('/', 'App\Http\Controllers\nurseIndexController@show');
-    Route::get('/getdata', [App\Http\Controllers\nurseIndexController::class, 'getData']);
-    Route::post('/sendCalendarData',[App\Http\Controllers\nurseIndexController::class,'store']);
+    Route::get('/', 'App\Http\Controllers\Nurse\IndexController@show');
+    Route::get('/getdata', [App\Http\Controllers\Nurse\IndexController::class, 'getData']);
+    Route::post('/sendCalendarData',[App\Http\Controllers\Nurse\IndexController::class,'store']);
 });
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->middleware(['auth', 'verified','nurse']);
-
-
-Route::get('/Főnővér', function () {
-    return view('/headNursePages/index');
-})->middleware(['auth', 'verified','headNurse'])->name('/headNursePages/index');
+Route::middleware('auth','verified','headNurse')->group(function(){
+    Route::get('/Főnővér',function(){
+        return view('/headNursePages/index');
+    })->name('/headNursePages/index');
+    Route::get('/edit',function(){
+        return view('/headNursePages/edit');
+    });
+    Route::get('/addEmployer',function(){
+        return view('/headNursePages/addEmployer');
+    });
+    Route::get('/send',function(){
+        mail('byroned100@gmail.com', 'valami', 'dsfds', 'From: nurseschedules@nurseschedules.nhely.hu');
+    });
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
