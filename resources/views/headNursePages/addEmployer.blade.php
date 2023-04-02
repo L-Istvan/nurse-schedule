@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -59,48 +60,77 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-            <div class="card-body">
-                <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-3 col-form-label">Teljes név</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="" >
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-3 col-form-label">Teljes név</label>
+                        <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputName" >
+                        </div>
                     </div>
-                  </div>
-                <div class="form-group row">
-                  <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
-                  <div class="col-sm-9">
-                    <input type="email" class="form-control" id="inputEmail3">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3">Végzettség</label>
-                  <div class="col-sm-9">
-                    <select class="form-control select2 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                        <option value="" selected disabled hidden> </option>
-                        <option data-select2-id="1">Segédápoló ápoló</option>
-                        <option data-select2-id="2">Gyakorló ápoló</option>
-                        <option data-select2-id="3">Szakápoló</option>
-                        <option data-select2-id="4">Diplomás ápoló (bsc)</option>
-                        <option data-select2-id="5">Diplomás ápoló (msc)</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3">Beosztás</label>
+                    <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="inputEmail3" placeholder="(nem kötelező)">
+                        <input type="email" class="form-control" id="inputEmail">
                     </div>
-                  </div>
+                    </div>
+                    <div class="form-group row">
+                    <label class="col-sm-3">Végzettség</label>
+                    <div class="col-sm-9">
+                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true" id="selectedEducation">
+                            <option value="" selected disabled hidden> </option>
+                            <option data-select2-id="1">Segédápoló</option>
+                            <option data-select2-id="2">Gyakorló ápoló</option>
+                            <option data-select2-id="3">Szakápoló</option>
+                            <option data-select2-id="4">Diplomás ápoló (bsc)</option>
+                            <option data-select2-id="5">Diplomás ápoló (msc)</option>
+                        </select>
+                    </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3">Beosztás</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputRank" placeholder="(nem kötelező)">
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
-          <button type="button" class="btn btn-primary">Megerősítő kód küldés</button>
-        </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
+              <button class="btn btn-primary" onclick="save()">Megerősítő kód küldés</button>
+            </div>
       </div>
     </div>
   </div>
 
+<script>
+function save(){
+    toastr.options = {"positionClass": "toast-top-center"};
+    inputName = document.getElementById('inputName').value;
+    inputEmail = document.getElementById('inputEmail').value;
+    selectedEducation = document.getElementById('selectedEducation').value;
+    inputRank = document.getElementById('inputRank').value;
+    array = {"inputName" : inputName,"inputEmail": inputEmail,
+    "selectedEducation":selectedEducation,"inputRank": inputRank};
+    $.ajax({
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        url: '/sendInputEmployee',
+        data : JSON.stringify(array),
+        contentType: 'application/json',
+        complete: function(xhr){
+            if (xhr.status == 200) toastr.success(xhr.responseJSON['message']);
+            else toastr.error(xhr.responseJSON['message']);
+
+        }
+    });
+
+}
+
+</script>
+
 </div>
 @endsection
+

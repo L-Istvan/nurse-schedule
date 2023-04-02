@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /** columns explanation
  * id()
- * foreignId('user_id') : A head nurse's group
+ * foreignId('group_id') : A head nurse's group
  * integer("person_id) : Employee ID
  * date('date') : Holiday day
  * boolean('accpeted') : If head nurse accepts

@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use App\Mail\WelcomeMail;
+use App\Http\Controllers\Nurse\IndexController;
+use App\Http\Controllers\HeadNurse\AddEmployeeController;
+use App\Http\Controllers\UniqueLinkController;
+use App\Models\UniqueLink;
 
 
 /*
@@ -18,15 +19,13 @@ use App\Mail\WelcomeMail;
 |
 */
 
-
-
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth');
 
 Route::middleware('auth','verified','nurse')->group(function(){
     Route::get('/', 'App\Http\Controllers\Nurse\IndexController@show');
-    Route::get('/getdata', [App\Http\Controllers\Nurse\IndexController::class, 'getData']);
-    Route::post('/sendCalendarData',[App\Http\Controllers\Nurse\IndexController::class,'store']);
+    Route::get('/getdata', [IndexController::class, 'getData']);
+    Route::post('/sendCalendarData',[IndexController::class,'store']);
 });
 
 Route::middleware('auth','verified','headNurse')->group(function(){
@@ -42,6 +41,8 @@ Route::middleware('auth','verified','headNurse')->group(function(){
     Route::get('/send',function(){
         mail('byroned100@gmail.com', 'valami', 'dsfds', 'From: nurseschedules@nurseschedules.nhely.hu');
     });
+    Route::post('/addNurse',[AddEmployeeController::class,'store']);
+    Route::post('/sendInputEmployee',[UniqueLinkController::class,'store']);
 });
 
 Route::middleware('auth')->group(function () {

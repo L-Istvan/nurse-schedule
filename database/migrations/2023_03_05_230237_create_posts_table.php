@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('group_id');
+            $table->foreign('group_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('person_id');
             $table->date('date');
             $table->integer('position');

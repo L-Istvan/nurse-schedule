@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $va = $table->id();
-            $table->integer('group_id');
+            $table->id();
+            $table->unsignedBigInteger('group_id');
             $table->string('name');
             $table->string('mobile_number')->nullable();
             $table->string('email')->unique();
@@ -23,7 +23,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->enum('role',['nurse','headNurse','admin']);
-            $table->integer('rank')->nullable();
+            $table->enum('education',['Segédápoló','Gyakorló ápoló','Szakápoló','Diplomás ápoló (bsc)','Diplomás ápoló (msc)'])->nullable();
+            $table->string('rank')->nullable();
         });
     }
 

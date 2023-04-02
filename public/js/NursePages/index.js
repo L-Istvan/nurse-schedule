@@ -189,7 +189,6 @@ function save() {
         data: JSON.stringify(array),
         contentType: 'application/json',
         complete: function(xhr){
-            console.log(xhr.responseText);
             if(xhr.status == 200) toastr.success("Sikeres mentés");
             else if(xhr.status == 204) toastr.warning("Nem történt változás");
             else {
