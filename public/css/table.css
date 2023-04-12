@@ -1,0 +1,27 @@
+#calendar {
+    min-height: 490px;
+    max-height: 1200px;
+    background-color: rgba(255,255,255, 0.2);
+    color:black;
+  }
+  .background{
+      background: url('/images/opacity_background.JPEG');
+    background-size: cover;
+  }
+  .card{
+      background-color: rgba(0,0,0, 0.2);
+  }
+  .fc-theme-standard td, .fc-theme-standard th {
+      border: 1px solid #000;
+      border-right-width: 1.5px;
+      border-bottom-width: 1.5px;
+  }
+  .fc-theme-standard .fc-scrollgrid {
+      border: 1px solid #000;
+  }
+  .fc .fc-daygrid-day.fc-day-today {
+      background-color: rgba(255,255,255, 0.4);
+  }
+  .btn-success{
+      background-color: rgb(9, 147, 20);
+  }
