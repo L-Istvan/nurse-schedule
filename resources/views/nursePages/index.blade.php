@@ -1,42 +1,12 @@
-              @extends('layouts.app')
+@extends('layouts.app')
 @section('content')
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
-<script src="{{ asset('js/NursePages/index.js') }}"></script>
-<link href="toastr.css" rel="stylesheet"/>
-
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<style>
-    #calendar {
-      min-height: 490px; /* vagy más, Önnek megfelelő érték */
-      max-height: 1200px;
-      background-color: rgba(255,255,255, 0.2);
-      color:black;
-    }
-    .vmi{
-        background: url('/images/opacity_background.JPEG');
-      background-size: cover;
-    }
-    .card{
-        background-color: rgba(0,0,0, 0.2);
-    }
-    .fc-theme-standard td, .fc-theme-standard th {
-        border: 1px solid #000;
-        border-right-width: 1.5px;
-        border-bottom-width: 1.5px;
-    }
-    .fc-theme-standard .fc-scrollgrid {
-        border: 1px solid #000;
-    }
-    .fc .fc-daygrid-day.fc-day-today {
-        background-color: rgba(255,255,255, 0.4);
-    }
-    .btn-success{
-        background-color: rgb(9, 147, 20);
-    }
-  </style>
+<script src="{{ asset('js/table/index.global.min.js') }}"></script>
+<script src="{{ asset('js/NursePages/index.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('toastr.css') }}">
+<link rel="stylesheet" href="{{ asset('css/table.css') }}">
 
-
-<div class="content-wrapper vmi">
+<div class="content-wrapper background">
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -48,7 +18,7 @@
                 <h5 class="text-center">Felhasznált</h5>
               </div>
               <div class="card-body">
-                <!-- the events -->
+                <!-- Event -->
                 <div class="card text-white">
                 @if ($settingArray->first())
                     <h5 class="text-center mt-3 mb-3">Kérés:
