@@ -3,9 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Nurse\IndexController;
-use App\Http\Controllers\HeadNurse\AddEmployeeController;
+use App\Http\Controllers\HeadNurse\addEmployer;
 use App\Http\Controllers\UniqueLinkController;
 use App\Models\UniqueLink;
+use App\Http\Controllers\HeadNurse\HeadIndexController;
+use App\Http\Controllers\HeadNurse\EditController;
 
 
 /*
@@ -32,17 +34,14 @@ Route::middleware('auth','verified','headNurse')->group(function(){
     Route::get('/Főnővér',function(){
         return view('/headNursePages/index');
     })->name('/headNursePages/index');
-    Route::get('/edit',function(){
-        return view('/headNursePages/edit');
+    Route::get('edit',[EditController::class,'index'])->name('edit');
+    Route::post('sendInputEmployee',[UniqueLinkController::class,'store']);
+    Route::get('addEmployer',[addEmployer::class,'index'])->name("addEmployer");
+    Route::post('delete',[addEmployer::class,'destroy'])->name("delete");
+    Route::get('getShift',[HeadIndexController::class,'getShift']);
+    Route::get('details',function(){
+        return view('headNursePages/details');
     });
-    Route::get('/addEmployer',function(){
-        return view('/headNursePages/addEmployer');
-    });
-    Route::get('/send',function(){
-        mail('byroned100@gmail.com', 'valami', 'dsfds', 'From: nurseschedules@nurseschedules.nhely.hu');
-    });
-    Route::post('/addNurse',[AddEmployeeController::class,'store']);
-    Route::post('/sendInputEmployee',[UniqueLinkController::class,'store']);
 });
 
 Route::middleware('auth')->group(function () {
