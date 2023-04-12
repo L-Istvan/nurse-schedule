@@ -13,42 +13,66 @@
         </div>
       </div>
     </section>
+
+    @if (session('err'))
+        <div class="alert alert-danger">
+            {{ session('succes') }}
+        </div>
+    @elseif ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="card card-solid">
         <div class="card-body pb-0">
           <div class="row">
-              <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+            @foreach ($users as $user)
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
                 <div class="card bg-light d-flex flex-fill">
                   <div class="card-header text-muted border-bottom-0">
-                    Laczi Hajnalka
+                    {{ $user->name }}
                   </div>
-                  <div class="card-body pt-0">
-                    <div class="row">
-                      <div class="col-7">
-                        <p class="text-muted text-sm mt-3"><b>Beosztás: </b> </p>
-                        <ul class="ml-4 mb-0 fa-ul text-muted">
-                            <li class="medium mt-3"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> Email: laczihajnalka@gmail.com</li>
-                          <li class="medium mt-3"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Végzettség: Diplomás ápoló</li>
-                          <li class="medium mt-3"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Telefonszám: +36 30 123456</li>
-                        </ul>
-                      </div>
-                      <div class="col-5 text-center">
-                        <img src="dist/img/profileLogo.png" alt="user-avatar" class="img-circle img-fluid">
-                      </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <p class="text-muted text-sm mt-3"><b>Beosztás : {{ $user->rank }} </b> </p>
+                      <form id="deleteForm" action="{{ route('delete') }}" method="post">
+                      @csrf
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="medium mt-3"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> Email: {{ $user->email }}</li>
+                        <li class="medium mt-3"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Végzettség: {{ $user->education }}</li>
+                        <li class="medium mt-3"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Telefonszám: {{ $user->mobile_number }}</li>
+                      </ul>
                     </div>
-                  </div>
-                  <div class="card-footer">
-                    <div class="text-right">
-                      <a href="#" class="btn btn-sm bg-teal">
-                        <i class="fas fa-comments"></i>
-                      </a>
-                      <a href="#" class="btn btn-sm btn-danger">
-                        <i class="fas fa-user"></i> Eltávolítás
-                      </a>
+                    <div class="col-5 d-flex align-items-center justify-content-center">
+                      <img src="images/nurse_profil.svg" alt="user-avatar" class="img-circle img-fluid">
                     </div>
                   </div>
                 </div>
+                <div class="card-footer">
+                    <div class="row justify-content-end">
+                      <div class="mr-2">
+                        <button class="btn btn-sm bg-teal">
+                          <i class="fas fa-comments"></i>
+                        </button>
+                      </div>
+                      <div class="mr-3">
+                          <input type="hidden" name="name" id="name" value= "{{ $user->name }}">
+                          <button onclick="confirmDelete()" class="btn btn-sm btn-danger" name="submit_button" value={{ $user->email }}>
+                            <i class="fas fa-user"></i> Eltávolítás
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
               </div>
-              <!-- Button trigger modal -->
+            </div>
+            @endforeach
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -90,7 +114,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3">Beosztás</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="inputRank" placeholder="(nem kötelező)">
+                            <input type="text" class="form-control" id="inputRank" value=" " placeholder="(nem kötelező)">
                         </div>
                     </div>
                 </div>
@@ -102,35 +126,6 @@
       </div>
     </div>
   </div>
-
-<script>
-function save(){
-    toastr.options = {"positionClass": "toast-top-center"};
-    inputName = document.getElementById('inputName').value;
-    inputEmail = document.getElementById('inputEmail').value;
-    selectedEducation = document.getElementById('selectedEducation').value;
-    inputRank = document.getElementById('inputRank').value;
-    array = {"inputName" : inputName,"inputEmail": inputEmail,
-    "selectedEducation":selectedEducation,"inputRank": inputRank};
-    $.ajax({
-        headers:{
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        type: 'POST',
-        url: '/sendInputEmployee',
-        data : JSON.stringify(array),
-        contentType: 'application/json',
-        complete: function(xhr){
-            if (xhr.status == 200) toastr.success(xhr.responseJSON['message']);
-            else toastr.error(xhr.responseJSON['message']);
-
-        }
-    });
-
-}
-
-</script>
-
 </div>
+<script src="/js/HeadNursePages/addEmployer.js"></script>
 @endsection
-
