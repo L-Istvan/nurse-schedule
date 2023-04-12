@@ -33,17 +33,16 @@ table, th, td {
             @endif
         @endfor
         {{--  --}}
-        @for ($i=0;$i<5;$i++)
+        @foreach ($userName as $name)
             <tr id={{$i}}> {{-- új sor és id--}}
-            <th scope="row">alma</th>
+            <th scope="row">{{ $name }}</th>
             @for ($j=0;$j<Carbon\Carbon::now()->daysInMonth;$j++)
                 <td> </td>
             @endfor
             </tr>
-        @endfor
+        @endforeach
     </table>
     </div>
-
     <script src="{{ asset('js/HeadNursePages/edit.js') }}"></script>
 </div>
 
