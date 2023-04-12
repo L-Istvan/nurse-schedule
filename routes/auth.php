@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\Auth\AddEmployeeController;
+use App\Http\Controllers\Auth\RegisterLinkController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -35,9 +35,9 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
 
-    Route::get('registerLink/{link}', [AddEmployeeController::class, 'create'])
+    Route::get('registerLink/{link}', [RegisterLinkController::class, 'create'])
                 ->name('registerLink');
-    Route::post('registerLink', [AddEmployeeController::class, 'store'])
+    Route::post('registerLink', [RegisterLinkController::class, 'store'])
                 ->name('registerLink');
 
 });
