@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->enum('education',['Segédápoló','Gyakorló ápoló','Szakápoló','Diplomás ápoló (bsc)','Diplomás ápoló (msc)']);
-            $table->string('rank');
+            $table->string('rank')->nullable();
             $table->timestamps();
         });
     }
