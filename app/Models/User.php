@@ -72,4 +72,16 @@ class User extends Authenticatable
     public function setting(){
         return $this->hasMany(Setting::class);
     }
+
+    static public function getUserbyGroupId($group_id){
+        return self::where('group_id',$group_id)->get();
+    }
+
+    static public function deleteUserbyEmailAndName($email,$name){
+        return self::where('email',$email)->where('name',$name)->delete();
+    }
+
+    static public function getUserName($group_id){
+        return self::where('group_id',$group_id)->pluck('name');
+    }
 }

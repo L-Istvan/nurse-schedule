@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'group_id' => 1,
+            'person_id' => rand(90,105),
+            'date' => fake()->dateTimeBetween('-1 week','+1 week'),
+            'position' => rand(1,2),
         ];
     }
 }
