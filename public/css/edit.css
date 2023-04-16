@@ -1,0 +1,110 @@
+/****** Table ****/
+tr {
+    cursor: pointer;
+    transition: all .25s ease-in-out
+}
+
+.prev,.next {
+    position: relative;
+    cursor: pointer;
+}
+
+.prev:hover,.next:hover {
+    background-color: #444;
+    width: 30px;
+    height: 55px;
+}
+
+table,
+th,
+td {
+    overflow-x:auto;
+    border: 1px solid #3e7eb3;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: auto;
+    min-width: 30px;
+    min-height: 30px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: #155b94;
+    ;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+ul {
+    list-style-type: none;
+}
+
+body {
+    font-family: Verdana, sans-serif;
+}
+
+.box {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.month {
+    padding: 20px 25px;
+    width: 100%;
+    background: #3e7eb3;
+    text-align: center;
+}
+
+.month ul {
+    margin: 0;
+    padding: 0;
+}
+
+.month ul li {
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.month .prev {
+    float: left;
+    padding-top: 10px;
+}
+
+.month .next {
+    float: right;
+    padding-top: 10px;
+}
+
+.square {
+    height: 15px;
+    width: 15px;
+}
+
+/* Add media queries for smaller screens */
+@media screen and (max-width:720px) {
+    .weekdays li,
+    .days li {
+        width: 13.1%;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .weekdays li,
+    .days li {
+        width: 12.5%;
+    }
+    .days li .active {
+        padding: 2px;
+    }
+}
+
+@media screen and (max-width: 290px) {
+    .weekdays li,
+    .days li {
+        width: 12.2%;
+    }
+}
