@@ -84,4 +84,14 @@ class User extends Authenticatable
     static public function getUserName($group_id){
         return self::where('group_id',$group_id)->pluck('name');
     }
+
+    static public function getEmailandNamebyUser($group_id){
+        return self::where('group_id',$group_id)
+        ->select('email','name')->get();
+    }
+
+    static public function getEmail($group_id,$email){
+        return self::where('group_id',$group_id)
+        ->where('email',$email)->exists();
+    }
 }
