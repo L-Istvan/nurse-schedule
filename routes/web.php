@@ -39,6 +39,7 @@ Route::middleware('auth','verified','headNurse')->group(function(){
     Route::get('addEmployer',[addEmployer::class,'index'])->name("addEmployer");
     Route::post('delete',[addEmployer::class,'destroy'])->name("delete");
     Route::get('getShift',[HeadIndexController::class,'getShift']);
+    Route::post('saveTableCells',[EditController::class,'store']);
     Route::get('details',function(){
         return view('headNursePages/details');
     });
