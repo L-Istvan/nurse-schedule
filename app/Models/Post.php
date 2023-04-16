@@ -25,4 +25,5 @@ class Post extends Model
         ->select('date','position','name')
         ->get();
     }
+
 }
