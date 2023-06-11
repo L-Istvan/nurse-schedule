@@ -21,7 +21,7 @@ class NurseAuthenticate
             $user = auth()->user();
 
             if ( $user->hasRole('headNurse') ) {
-                return redirect(route('/headNursePages/index'));
+                return redirect()->route('edit');
             }
             else if ( $user->hasRole('nurse') ) {
                 return $next($request);
