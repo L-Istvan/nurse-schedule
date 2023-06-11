@@ -1,18 +1,26 @@
 @extends('layouts.app')
 @section('content')
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+<link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <div class="content-wrapper">
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="d-flex justify-content-center">
-            <a href="#" class="btn btn-m" data-toggle="modal" data-target="#exampleModal" style="border-radius: 2rem;background-color:#47a0e4;">
-                <img src="/dist/img/addemployee.png" alt="">Regisztrálás
-            </a>
+    <div class="box">
+        <div class="month">
+            <ul>
+              <li class="left"> <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a></li>
+              <li>
+                    <div class="container-fluid">
+                      <div class="d-flex justify-content-center">
+                          <a href="#" class="btn btn-m" data-toggle="modal" data-target="#exampleModal" style="border-radius: 1rem;background-color:#3e7eb3;color:white;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
+                              <img id="regist" src="/dist/img/addemployee.png" alt="">Új nővér regisztálás
+                          </a>
+                      </div>
+                    </div>
+              </li>
+            </ul>
         </div>
-      </div>
-    </section>
+    </div>
 
     @if (session('err'))
         <div class="alert alert-danger">
