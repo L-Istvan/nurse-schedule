@@ -1,0 +1,12 @@
+<?php
+
+//population
+
+//fitnes
+
+//reproduction
+
+
+
+?>
+
