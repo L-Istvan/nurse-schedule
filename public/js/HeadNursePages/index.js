@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.onload = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let data = JSON.parse(xhr.responseText);
-            console.log(data);
             data.forEach(element => {
                 if (element.position == 1) shift = "blue";
                 else shift = gray;
