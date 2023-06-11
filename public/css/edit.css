@@ -1,4 +1,4 @@
-/****** Table ****/
+    /****** Table ****/
 tr {
     cursor: pointer;
     transition: all .25s ease-in-out
@@ -18,11 +18,10 @@ tr {
 table,
 th,
 td {
-    overflow-x:auto;
-    border: 1px solid #3e7eb3;
-    border-collapse: collapse;
+    border: 1px solid #579bd3;
+    border-collapse: separate;
+    border-spacing: 0;
     table-layout: fixed;
-    width: auto;
     min-width: 30px;
     min-height: 30px;
     margin-top: 30px;
@@ -30,7 +29,20 @@ td {
     margin-right: auto;
     text-align: center;
     color: #155b94;
-    ;
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+    width: 100px;
+    white-space: nowrap;
+}
+
+th:first-child,
+td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background-color: #F4F6F9;
 }
 
 * {
@@ -47,7 +59,7 @@ body {
 
 .box {
     overflow-x: auto;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .month {
@@ -84,6 +96,11 @@ body {
     width: 15px;
 }
 
+.left{
+    float: left;
+    margin-left: -30px;
+}
+
 /* Add media queries for smaller screens */
 @media screen and (max-width:720px) {
     .weekdays li,
@@ -108,3 +125,9 @@ body {
         width: 12.2%;
     }
 }
+
+@media (max-width: 470px) {
+    #regist {
+      display: none;
+    }
+  }
