@@ -33,4 +33,13 @@ class Holiday extends Model
     public static function searchDate($person_id,$date){
         return self::where('person_id', $person_id)->where('date', $date)->exists();
     }
+
+    public static function getHolidaybyMonthAndUserId($person_id,$month){
+        return self::where('person_id',$person_id)
+        ->whereMonth('date', $month)
+        ->pluck('date');
+    }
+
+
+
 }
