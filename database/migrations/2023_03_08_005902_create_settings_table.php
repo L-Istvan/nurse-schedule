@@ -22,7 +22,11 @@ return new class extends Migration
             $table->integer('currentMonthHoliday');
             $table->integer('maxPetitons');
             $table->integer('currentPetitons');
-            $table->integer('SickLeaves');
+            $table->integer('sickLeaves');
+            $table->integer('numberOfDays');
+            $table->integer('numberOfNights');
+            $table->integer('maxNumberOfWorkersInOnday');
+            $table->integer('minNumberOfWorkersInOnday');
             $table->timestamps();
         });
     }
