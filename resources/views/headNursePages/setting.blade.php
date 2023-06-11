@@ -69,7 +69,7 @@
           <!-- --------------------------------------------------------------------------->
           <div class="d-flex justify-content-between mt-4">
             <div>
-                <h2><strong>Nappalok</strong> száma</h2>
+                <h2><strong>Nappalok</strong> száma egy hónapra</h2>
             </div>
             <div>
                 <div class="dropdown">
@@ -87,7 +87,7 @@
           <!-- --------------------------------------------------------------------------->
           <div class="d-flex justify-content-between mt-4">
             <div>
-                <h2><strong>Éjszakák</strong> száma</h2>
+                <h2><strong>Éjszakák</strong> száma egy hónapra</h2>
             </div>
             <div>
                 <div class="dropdown">
