@@ -1,0 +1,54 @@
+h1{
+    font-family: verdana;
+    font-weight: bold;
+    font-style: italic;
+    text-align: left;
+    font-size: 32px;
+    letter-spacing: -1px;
+    color: black;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+h2{
+    font-family: "Fenix", serif;
+    text-align: left;
+    font-size: 20px;
+    letter-spacing: -1px;
+    color: black;
+    margin-top: 10px;
+}
+
+.underline-extended {
+    position: relative;
+  }
+
+  .underline-extended::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: rgba(135, 135, 135, 0.832);
+  }
+
+  .my-custom-margin {
+    margin-left: 20rem; /* Vagy a kívánt margó értéke */
+  }
+
+.ml-md-6 {
+    margin-left: 10rem;
+}
+
+@media screen and (max-width:720px) {
+    .custom-margin-right {
+      margin-right: 20px; /* Az itt megadott margó értékét szabadon módosíthatod */
+    }
+  }
+  @media screen and (min-width:720px) {
+    .custom-margin-right {
+      margin-right: 0px; /* Az itt megadott margó értékét szabadon módosíthatod */
+    }
+  }
+
