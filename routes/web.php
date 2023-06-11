@@ -8,7 +8,9 @@ use App\Http\Controllers\UniqueLinkController;
 use App\Models\UniqueLink;
 use App\Http\Controllers\HeadNurse\HeadIndexController;
 use App\Http\Controllers\HeadNurse\EditController;
-
+use App\Http\Controllers\HeadNurse\DetailsController;
+use App\Http\Controllers\HeadNurse\SettingController;
+use App\Http\Controllers\HeadNurse\GeneticController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,25 +26,30 @@ use App\Http\Controllers\HeadNurse\EditController;
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth');
 
+/*-----------------------Employee(nurse)----------------------------------*/
 Route::middleware('auth','verified','nurse')->group(function(){
     Route::get('/', 'App\Http\Controllers\Nurse\IndexController@show');
     Route::get('/getdata', [IndexController::class, 'getData']);
     Route::post('/sendCalendarData',[IndexController::class,'store']);
 });
 
+/*---------------------------HeadNurse--------------------------------------*/
 Route::middleware('auth','verified','headNurse')->group(function(){
-    Route::get('/Főnővér',function(){
-        return view('/headNursePages/index');
-    })->name('/headNursePages/index');
-    Route::get('edit',[EditController::class,'index'])->name('edit');
+    //Route::get('/Főnővér',function(){
+    //    return view('/headNursePages/index');
+    //});
+    Route::get('Főnővér',[EditController::class,'index'])->name('edit');
     Route::post('sendInputEmployee',[UniqueLinkController::class,'store']);
     Route::get('addEmployer',[addEmployer::class,'index'])->name("addEmployer");
     Route::post('delete',[addEmployer::class,'destroy'])->name("delete");
     Route::get('getShift',[HeadIndexController::class,'getShift']);
     Route::post('saveTableCells',[EditController::class,'store']);
-    Route::get('details',function(){
-        return view('headNursePages/details');
-    });
+    Route::get('tableLoad',[EditController::class,'tableLoad']);
+    Route::get('details',[DetailsController::class,'index']);
+    Route::post('deleteActTable',[EditController::class,'destroy']);
+    Route::get('setting ',[SettingController::class,'index'])->name('setting.index');
+    Route::post('create_schedule',[GeneticController::class,'genetic']);
+    Route::post('saveSettingValue',[SettingController::class,'store'])->name('setting.store');
 });
 
 Route::middleware('auth')->group(function () {
