@@ -85,6 +85,11 @@ class User extends Authenticatable
         return self::where('group_id',$group_id)->pluck('name');
     }
 
+    static public function getUserIdAndNamebyUser($group_id){
+        return self::where('group_id',$group_id)
+        ->select('id','name')->get();
+    }
+
     static public function getEmailandNamebyUser($group_id){
         return self::where('group_id',$group_id)
         ->select('email','name')->get();
@@ -93,5 +98,9 @@ class User extends Authenticatable
     static public function getEmail($group_id,$email){
         return self::where('group_id',$group_id)
         ->where('email',$email)->exists();
+    }
+
+    static public function getPersonId($group_id){
+        return self::where('group_id',$group_id)->pluck('id');
     }
 }
