@@ -18,6 +18,19 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'group_id',
+        'person_id',
+        'date',
+        'position',
+    ];
+
+    static public function getShift($group_id){
+        return self::where('group_id',$group_id)
+        ->select('person_id','date','position')
+        ->get();
+    }
+
     static public function getAllData($group_id){
         $user = new User();
         return self::leftJoin('users','posts.person_id', '=', 'users.id')
@@ -26,4 +39,17 @@ class Post extends Model
         ->get();
     }
 
+    static public function checkExist($person_id,$date,$shift,){
+        return self::where('person_id',$person_id)
+        ->where('date',$date)
+        ->where('shift',$shift)
+        ->exists();
+    }
+
+    static public function deleteRow($group_id,$year,$month){
+        return self::where('group_id',$group_id)
+        ->whereYear('date',$year)
+        ->whereMonth('date',$month)
+        ->delete();
+    }
 }
