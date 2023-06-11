@@ -1,13 +1,10 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <div class="" style="color: white; font-weight: 450; text-align: center; margin-top:20px; font-size: 20px;">
-        <p>Nurses schedule </p>
-    </div>
+<aside class="main-sidebar sidebar-dark-primary elevation-4 ">
+
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-4 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="dist/img/profileLogo.png" class="img-circle elevation-2" alt="User Image">
         </div>
@@ -16,7 +13,7 @@
         </div>
       </div>
 
-      <!-- idebar Menu -->
+      {{-------------EMPLOYEE(nurse) && HEADNURSE idebar menu------------------}}
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
@@ -27,6 +24,7 @@
               </p>
             </a>
           </li>
+          {{-------------EMPLOYEE(nurse) idebar menu------------------}}
           @if (Auth::user()->role === "nurse")
             <li class="nav-item">
                 <a href="exchange" class="nav-link">
@@ -35,13 +33,8 @@
                 </a>
             </li>
           @endif
+          {{-------------HEADNURSE idebar menu------------------}}
           @if (Auth::user()->role === "headNurse")
-            <li class="nav-item">
-                <a href="edit" class="nav-link">
-                    <i class="nav-icon fas fa-edit"></i>
-                    <p>Beosztás szerkesztés</p>
-                </a>
-            </li>
             <li class="nav-item">
                 <a href="addEmployer" class="nav-link">
                     <i class="nav-icon fas fa-book"></i>
@@ -49,9 +42,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="edit" class="nav-link">
+                <a href="details" class="nav-link">
                     <i class="nav-icon fas fa-book"></i>
                     <p>Részletek</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="setting" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>Beállítások</p>
                 </a>
             </li>
           @endif
