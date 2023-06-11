@@ -1,96 +1,48 @@
-<style>
-    .table-container {
-  overflow-x: auto;
-}
+@extends('layouts.app')
+@section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
 
-th,
-td {
-  text-align: left;
-  padding: 8px;
-  border: 1px solid #ddd;
-}
 
-@media only screen and (max-width: 600px) {
-  th,
-  td {
-    display: block;
-    width: 100%;
-  }
+<div class="content-wrapper">
+    {{-- ezt majd mobilra vagy tabletra
+    <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+            <i class="fas fa-bars"></i>
+          </a>
+        </li>
+    </ul>
+    --}}
 
-  th {
-    text-align: center;
-  }
 
-  .toggle-table {
-    display: block;
-  }
 
-  .table-container {
-    overflow-x: hidden;
-  }
+    <div class="box">
+        <div class="month">
+            <ul>
+              <li class="left"> <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a></li>
+              <li>
+                <label id="month"></label><br>
+                <span id="year" style="font-size:18px"></span>
+              </li>
+            </ul>
+        </div>
+    </div>
 
-  table {
-    border: none;
-  }
 
-  tr {
-    margin-bottom: 20px;
-    display: block;
-    border-bottom: 2px solid #ddd;
-  }
+    <div class="row container">
+        <div class="col-1 d-none d-xl-block">
+        </div>
+        <div class="ml-4 col-12 col-xl-7">
+            bvcbvc
+        </div>
+        <div class="col-4 d-none d-xl-block">
+        </div>
+    </div>
 
-  td:before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-  }
 
-  td {
-    display: block;
-    text-align: right;
-    border-bottom: 1px dotted #ddd;
-  }
-}
-</style>
+</div>
 
-<div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Header 1</th>
-          <th>Header 2</th>
-          <th>Header 3</th>
-          <th>Header 4</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Data 1</td>
-          <td>Data 2</td>
-          <td>Data 3</td>
-          <td>Data 4</td>
-        </tr>
-        <tr>
-          <td>Data 5</td>
-          <td>Data 6</td>
-          <td>Data 7</td>
-          <td>Data 8</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <button class="toggle-table">Show/Hide Table</button>
-
-  <script>
-    const toggleTableButton = document.querySelector('.toggle-table');
-const tableContainer = document.querySelector('.table-container');
-
-toggleTableButton.addEventListener('click', function() {
-  tableContainer.classList.toggle('table-hidden');
-});
-  </script>
+<script src="js/HeadNursePages/setting.js"></script>
+@endsection
