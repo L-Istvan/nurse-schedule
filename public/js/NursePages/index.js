@@ -193,7 +193,6 @@ function save() {
             else if(xhr.status == 204) toastr.warning("Nem történt változás");
             else {
                 toastr.error("Hiba történt a mentés során.");
-                console.log(xhr.responseText);
             }
         }
     });
