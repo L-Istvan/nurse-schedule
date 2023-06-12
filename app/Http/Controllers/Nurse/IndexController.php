@@ -61,7 +61,7 @@ class IndexController extends Controller
         $currentPetiton = $setting->first()->currentPetitons;
         $currentMonthHoliday = $setting->first()->currentMonthHoliday;
         $currentYearHoliday = $setting->first()->currentYearHoliday;
-        $currentSickLeave = $setting->first()->SickLeaves;
+        $currentSickLeave = $setting->first()->sickLeaves;
 
         $change = false;
 
@@ -98,7 +98,6 @@ class IndexController extends Controller
 
         //update setting table
         if ($change){
-            Debugbar::info("változás történt");
             $update = Setting::where('person_id',Auth::user()->id)->first();
             $update->currentPetitons = $currentPetiton;
             $update->currentMonthHoliday = $currentMonthHoliday;
@@ -110,7 +109,5 @@ class IndexController extends Controller
         else{
             return response("Nem történt változás",204);
         }
-
     }
-
 }
