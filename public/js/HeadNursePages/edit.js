@@ -85,7 +85,7 @@ tbody.addEventListener('click', function (e) {
     const row = cell.parentElement;
     x = document.getElementById("table").rows[row.rowIndex].cells[cell.cellIndex];
     if (window.getComputedStyle(e.target,null).backgroundColor == "rgba(0, 0, 0, 0)" ||
-    window.getComputedStyle(e.target,null).backgroundColor == "rgb(0, 0, 255)"){ //Is it the original color?
+    window.getComputedStyle(e.target,null).backgroundColor == 'rgb(255, 255, 255)'){ //Is it the original color?
         x.style.backgroundColor = "#3e7eb3"; //blue
         }
     else{
@@ -94,7 +94,7 @@ tbody.addEventListener('click', function (e) {
         }
         else{
             if (window.getComputedStyle(e.target,null).backgroundColor == "rgb(57, 62, 70)"){ //Is it gray color?
-                x.style.backgroundColor = "rgba(0, 0, 0, 0)"; //white
+                x.style.backgroundColor = "rgb(255, 255, 255)"; //white
             }else{
                 console.log("ERROR: COLOR ");
                 }
