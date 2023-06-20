@@ -19,7 +19,7 @@ class SettingController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'type' => ['required','string','ma x:30','regex:/^[a-zA-Z]+$/'],
+            'type' => ['required','string','max:30','regex:/^[a-zA-Z]+$/'],
             'number' => ['required', 'numeric'],
         ]);
         $data = $request->all();
