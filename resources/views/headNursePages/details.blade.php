@@ -4,45 +4,48 @@
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 
 
-
-<div class="content-wrapper">
-    {{-- ezt majd mobilra vagy tabletra
-    <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-            <i class="fas fa-bars"></i>
-          </a>
-        </li>
-    </ul>
-    --}}
-
-
-
+<div class="content-wrapper" style="background-color: rgb(237, 242, 248);">
     <div class="box">
         <div class="month">
             <ul>
-              <li class="left"> <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a></li>
+                <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a>
               <li>
-                <label id="month"></label><br>
-                <span id="year" style="font-size:18px"></span>
+                    <div class="container-fluid">
+                      <div class="d-flex justify-content-center">
+                          <a href="#" class="btn btn-m" data-toggle="modal" data-target="#exampleModal" style="border-radius: 1rem;background-color:#3e7eb3;color:white;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
+                              <img id="regist" src="/dist/img/addemployee.png" alt="">Új nővér regisztálás
+                          </a>
+                      </div>
+                    </div>
               </li>
             </ul>
         </div>
     </div>
 
 
-    <div class="row container">
-        <div class="col-1 d-none d-xl-block">
-        </div>
-        <div class="ml-4 col-12 col-xl-7">
-            bvcbvc
-        </div>
-        <div class="col-4 d-none d-xl-block">
-        </div>
+    @if (session('err'))
+    <div class="alert alert-danger">
+        {{ session('succes') }}
     </div>
+@elseif ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 
-</div>
 
-<script src="js/HeadNursePages/setting.js"></script>
-@endsection
+
+
+
+
+
+
+ </div>
+
+ @endsection
+
