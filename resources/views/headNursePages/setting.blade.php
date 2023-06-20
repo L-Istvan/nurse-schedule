@@ -1,14 +1,13 @@
 @extends('layouts.app')
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 <link rel="stylesheet" href="{{asset('css/setting.css')}}">
-<div class="content-wrapper">
+<div class="content-wrapper" style="background-color: rgb(237, 242, 248);">
 
     <div class="box">
         <div class="month">
             <ul>
-              <li class="left"> <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a></li>
+              <li class="left"> <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a>
               <li>
                 <label>Beállítás</label><br>
               </li>
@@ -22,8 +21,9 @@
         <!----------------------------------------------------------------------------------------------------------------------------->
         <!-- ------------------------------------------------first column ------------------------------------------------------------->
         <!----------------------------------------------------------------------------------------------------------------------------->
-        <div class="col-0 col-xl-1">
-        </div>
+
+
+
         <!----------------------------------------------------------------------------------------------------------------------------->
         <!---------------------------------------------------second column------------------------------------------------------------->
         <!----------------------------------------------------------------------------------------------------------------------------->
