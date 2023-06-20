@@ -41,6 +41,29 @@ h2{
     margin-left: 10rem;
 }
 
+.month {
+    width: 100%;
+    background: #3e7eb3;
+    text-align: center;
+}
+
+.month ul {
+    margin: 0;
+    padding: 0;
+}
+
+.left{
+    float: left;
+}
+
+.month ul li {
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+
 @media screen and (max-width:720px) {
     .custom-margin-right {
       margin-right: 20px; /* Az itt megadott margó értékét szabadon módosíthatod */
