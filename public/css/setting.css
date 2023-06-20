@@ -19,11 +19,19 @@ h2{
     margin-top: 10px;
 }
 
+h3{
+    font-family: "Fenix", serif;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: -1px;
+    color: black;
+}
+
 .underline-extended {
     position: relative;
   }
 
-  .underline-extended::after {
+.underline-extended::after {
     content: '';
     position: absolute;
     bottom: -20px;
@@ -33,21 +41,15 @@ h2{
     background-color: rgba(135, 135, 135, 0.832);
   }
 
-  .my-custom-margin {
-    margin-left: 20rem; /* Vagy a kívánt margó értéke */
-  }
 
-.ml-md-6 {
-    margin-left: 10rem;
-}
-
-.month {
+.header {
     width: 100%;
     background: #3e7eb3;
     text-align: center;
+    height: 3rem;
 }
 
-.month ul {
+.header ul {
     margin: 0;
     padding: 0;
 }
@@ -63,15 +65,15 @@ h2{
     letter-spacing: 3px;
 }
 
-
 @media screen and (max-width:720px) {
     .custom-margin-right {
-      margin-right: 20px; /* Az itt megadott margó értékét szabadon módosíthatod */
+      margin-right: 20px;
     }
-  }
-  @media screen and (min-width:720px) {
+}
+
+@media screen and (min-width:720px) {
     .custom-margin-right {
-      margin-right: 0px; /* Az itt megadott margó értékét szabadon módosíthatod */
+      margin-right: 0px;
     }
-  }
+}
 

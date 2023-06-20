@@ -4,36 +4,25 @@
 <link rel="stylesheet" href="{{asset('css/setting.css')}}">
 <div class="content-wrapper" style="background-color: rgb(237, 242, 248);">
 
-    <div class="box">
-        <div class="month">
+        <div class="header">
             <ul>
-              <li class="left"> <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a>
+              <li class="left"> <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a></li>
               <li>
-                <label>Beállítás</label><br>
+                    <h3>Beálíltások</h3>
               </li>
             </ul>
         </div>
-    </div>
 
 
-
-    <div class="row container">
-        <!----------------------------------------------------------------------------------------------------------------------------->
-        <!-- ------------------------------------------------first column ------------------------------------------------------------->
-        <!----------------------------------------------------------------------------------------------------------------------------->
-
-
-
-        <!----------------------------------------------------------------------------------------------------------------------------->
-        <!---------------------------------------------------second column------------------------------------------------------------->
-        <!----------------------------------------------------------------------------------------------------------------------------->
-        <div class="ml-4 col-12 col-xl-7 .custom-margin-right">
+    <div class="row mt-4 ml-0 mr-2 ml-md-4 mr-md-4">
+        <div class="col-12 col-md-6 col-xl-6">
 
             <!-- ------------------------------------------------------------------------>
             <h1 class="underline-extended">Munka Beosztás</h1>
             <div class="d-flex justify-content-between">
                 <div>
                     <h2>Egy napon <strong>maximum</strong> dolgozók száma</h2>
+                    <em>Dolgozók száma nappal</em>
                 </div>
                 <div>
                     <div class="dropdown">
@@ -52,6 +41,7 @@
            <div class="d-flex justify-content-between mt-4">
             <div>
                 <h2>Egy napon <strong>minimum</strong> dolgozók száma</h2>
+                <em>Dolgozók száma éjszaka</em>
             </div>
             <div>
                 <div class="dropdown">
@@ -70,6 +60,7 @@
           <div class="d-flex justify-content-between mt-4">
             <div>
                 <h2><strong>Nappalok</strong> száma egy hónapra</h2>
+                <em>Dolgozóknak hány nappalos műszakuk legyen</em>
             </div>
             <div>
                 <div class="dropdown">
@@ -88,6 +79,26 @@
           <div class="d-flex justify-content-between mt-4">
             <div>
                 <h2><strong>Éjszakák</strong> száma egy hónapra</h2>
+                <em>Dolgozóknak hány éjszakás műszakuk legyen</em>
+            </div>
+            <div>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="night" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{$setting[0]->numberOfNights}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        @for ($i=1;$i<=10;$i++)
+                        <button id="night" class="dropdown-item" type="button" href="#">{{$i}}</button>
+                        @endfor
+                    </div>
+                </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------------------------------------->
+          <div class="d-flex justify-content-between mt-4">
+            <div>
+                <h2><strong>Munka órák</strong> kiegyenlítési ideje hónap száma szerint</h2>
+                <em></em>
             </div>
             <div>
                 <div class="dropdown">
@@ -139,13 +150,18 @@
                     </div>
                 </div>
             </div>
-          </div>
-          <!----------------------------------Rest Day------------------------------------>
-          <!------------------------------------------------------------------------------>
+        </div>
+    </div>
+        <!----------------------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------ second column --------------------------------------------------------------->
+        <!----------------------------------------------------------------------------------------------------------------------------->
+        <div class="col-0 col-md-6 col-xl-6">
+
           <h1 class="underline-extended">Kérés</h1>
           <div class="d-flex justify-content-between mt-4">
             <div>
                 <h2>Kérhető pihenőnap száma <strong>egy hónapra</strong></h2>
+                <em>Dolgozó mennyi kijelölt pihenő napot kérhet </em>
             </div>
             <div>
                 <div class="dropdown">
@@ -158,14 +174,10 @@
                         @endfor
                     </div>
                 </div>
-            </div>
-          </div>
-        </div>
+              </div>
+             </div>
 
-        <!----------------------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------ third column --------------------------------------------------------------->
-        <!----------------------------------------------------------------------------------------------------------------------------->
-        <div class="col-0 col-xl-4">
+
         </div>
     </div>
 
