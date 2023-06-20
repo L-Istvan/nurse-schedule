@@ -13,7 +13,7 @@
                     <div class="col-6">
                         <div class="d-flex align-items-center">
                             <label class="switch mx-2">
-                              <input class="switch1" type="checkbox" id="switch1">
+                              <input class="switch" type="checkbox" id="day" name="switch1" checked>
                               <span class="slider">
                                 <svg class="slider-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"><path fill="none" d="m4 16.5 8 8 16-16"></path></svg>
                               </span>
@@ -24,7 +24,7 @@
                     <div class="col-6">
                         <div class="d-flex align-items-center">
                             <label class="switch mx-2">
-                              <input class="switch2" type="checkbox" id="switch2">
+                              <input class="switch" type="checkbox" id="holiday" name="switch2">
                               <span class="slider">
                                 <svg class="slider-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"><path fill="none" d="m4 16.5 8 8 16-16"></path></svg>
                               </span>
@@ -37,7 +37,7 @@
                     <div class="col-6">
                         <div class="d-flex align-items-center">
                             <label class="switch mx-2">
-                              <input class="switch3" type="checkbox" id="switch3">
+                              <input class="switch" type="checkbox" id="night" name="switch3" checked>
                               <span class="slider">
                                 <svg class="slider-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"><path fill="none" d="m4 16.5 8 8 16-16"></path></svg>
                               </span>
@@ -48,7 +48,7 @@
                     <div class="col-6">
                         <div class="d-flex align-items-center">
                             <label class="switch mx-2">
-                              <input class="switch4" type="checkbox" id="switch4">
+                              <input class="switch" type="checkbox" id="sickLeave" name="switch4">
                               <span class="slider">
                                 <svg class="slider-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"><path fill="none" d="m4 16.5 8 8 16-16"></path></svg>
                               </span>
@@ -61,7 +61,7 @@
                     <div class="col-6">
                             <div class="d-flex align-items-center">
                                 <label class="switch mx-2">
-                                <input class="switch5" type="checkbox" id="switch5">
+                                <input class="switch" type="checkbox" id="petition" name="switch5">
                                 <span class="slider">
                                     <svg class="slider-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"><path fill="none" d="m4 16.5 8 8 16-16"></path></svg>
                                 </span>
@@ -72,7 +72,7 @@
                     <div class="col-6">
                         <div class="d-flex align-items-center">
                             <label class="switch mx-2">
-                              <input class="switch6" type="checkbox" id="switch6">
+                              <input class="switch" type="checkbox" id="all" name="switch6">
                               <span class="slider">
                                 <svg class="slider-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"><path fill="none" d="m4 16.5 8 8 16-16"></path></svg>
                               </span>
@@ -109,7 +109,6 @@
           </div>
         </div>
       </div>
-
 
 <div class="card mx-auto" style="max-width: 1210px;">
  <div class="card-body">
