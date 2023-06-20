@@ -147,22 +147,7 @@ body {
     transition: transform .25s ease-in-out 0s;
   }
 
-  input#switch1:checked + .slider {
-    background-color: #283aa1;
-  }
-  input#switch2:checked + .slider {
-    background-color: #283aa1;
-  }
-  input#switch3:checked + .slider {
-    background-color: #283aa1;
-  }
-  input#switch4:checked + .slider {
-    background-color: #283aa1;
-  }
-  input#switch5:checked + .slider {
-    background-color: #283aa1;
-  }
-  input#switch6:checked + .slider {
+  .switch:checked + .slider {
     background-color: #283aa1;
   }
 
