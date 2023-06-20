@@ -2,69 +2,96 @@
 
 namespace App\Http\Controllers\HeadNurse;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\Post;
-use App\Models\Holiday;
-use App\Models\SickLeave;
-use App\Models\Petition;
-use App\Models\Setting;
-use Illuminate\Http\Request;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Exception;
+use App\Models\Post;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\Debugbar\Facades\Debugbar;
+use App\Http\Controllers\GeneticTools;
+use App\Http\Controllers\Chromosome;
+use App\Http\Controllers\Genetic;
 
 class GeneticController extends Controller
 {
-    public function store($year,$month,$arr){
-        try {
-            foreach($arr as $key => $item) {
-                $post = Post::firstOrCreate([
-                    'group_id' => Auth::user()->id,
-                    'person_id' => $item,
-                    'date' => $year."-".$month."-".$key,
-                    'position' => 2
-                ]);
+    public function store($arr,$year,$month){
+        foreach ($arr as $day => $values){
+            foreach ($values as $id){
+                try {
+                    if (0 < $id){
+                        $post = Post::firstOrCreate([
+                            'group_id' => Auth::user()->id,
+                            'person_id' => $id,
+                            'date' => $year."-".$month."-".$day,
+                            'position' => 2
+                        ]);
+                    }
+
+                    else{
+                        $post = Post::firstOrCreate([
+                            'group_id' => Auth::user()->id,
+                            'person_id' => abs($id),
+                            'date' => $year."-".$month."-".$day,
+                            'position' => 1
+                        ]);
+                    }
+                } catch (Exception $ex) {
+                    Debugbar::error("HIBA");
+                    Debugbar::info($ex);
+                }
             }
-        } catch (Exception $ex) {
-            Debugbar::info($ex);
         }
     }
 
 
-    // [1.id][1] -> első idének az első napja! nem a 2.!!!
-    public function updateCanWorkOnThisDay($month,$monthDayNumber){
-        $canWorkOnThisDay = [];
-        $users = User::getPersonId(Auth::user()->id);
-        foreach ($users as $key => $user){
+    //kezdezi chromosome létrehozása
+    public function createPeliminaryChromosome($sorted_user,$monthDayNumber,$max,$min){
+        //NAPPAL : 7
+        //ÉJSZAKA : 6
+        $chromosome = [];
 
-            for ($i=0; $i<$monthDayNumber; $i++){
-                $canWorkOnThisDay[$user][] = 1;
+        foreach ($sorted_user as $id => $values){
+            $free = [];
+
+            // bele töltés szabadokba
+            foreach ($values as $day =>$value ){
+                if ($value == 1) $free[] = $day; // free[3,4,5,6,7,11,12]
             }
 
-            //Petiton's value = 0
-            $petitions = Petition::getPetitionbyHolidayAndUserId($user,$month);
-            foreach ($petitions as $petition){
-                $arr = explode("-",$petition);
-                $canWorkOnThisDay[$user][intval($arr[2])] = 0;
+            // óra szám kiszámolása
+
+            // nappal 7 (pozitiv id)
+            for ($i=0;$i<7;$i++){
+                $randomIndex = array_rand($free);
+                $selectedElement = $free[$randomIndex];
+                unset($free[$randomIndex]);
+                $chromosome[$selectedElement][] = $id;
             }
 
-            //holiday's value = -1
-            $holidays = Holiday::getHolidaybyMonthAndUserId($user,$month);
-            foreach($holidays as $holiday){
-                $arr = explode("-",$holiday);
-                $canWorkOnThisDay[$user][intval($arr[2])] = -1;
+            //éjszaka 6 (negatív id)
+            for ($i=0;$i<6;$i++){
+                $randomIndex = array_rand($free);
+                $selectedElement = $free[$randomIndex];
+                unset($free[$randomIndex]);
+                $chromosome[$selectedElement][] = $id * -1;
             }
 
-            //SickLeave's value = -2
-            $sickLeaves = SickLeave::getSickLeavebyMonthAndUserId($user,$month);
-            foreach($sickLeaves as $sickLeave){
-                $arr = explode("-",$sickLeave);
-                $canWorkOnThisDay[$user][intval($arr[2])] = -2;
-            }
         }
-        return $canWorkOnThisDay;
+        return $chromosome;
+    }
+
+    public function createPeliminaryPopulation($users,$canWorkOnThisDay,$population_size,$monthDayNumber,$max,$min,$days,$nights){
+        $chromosome = [];
+        $population = [];
+        //main loop
+        for ($i=0;$i<$population_size;$i++){ //population
+            for($m=0;$m<$monthDayNumber;$m++){ //28 29 30 31
+                $chromosome[$m] = Arr::random($users);
+            }
+            $population[] = $chromosome;
+        }
+        return $population;
     }
 
     /**
@@ -72,18 +99,13 @@ class GeneticController extends Controller
      * @return void
      */
     public function genetic(Request $request){
-        $data = $request;
-        $users = User::getPersonId(Auth::user()->id);
-        $users = $users->toArray();
-        $canWorkOnThisDay = self::updateCanWorkOnThisDay($data[1],$data[2]);
-        $chromosome = [];
-        for($i=1;$i<=$data[2];$i++){
-            $chromosome[$i] = Arr::random($users);
-        }
+        $year = $request[0];
+        $month = $request[1];
+        $last_day_in_month = $request[2];
 
-        //save to database
-        self::store($data[0],$data[1],$chromosome);
-        Debugbar::info($chromosome);
+        $genetic = new Genetic();
+        Debugbar::info($genetic->workTime(22,0,0    ));
+
         return response("Az új beosztás elkészült");
     }
 }
