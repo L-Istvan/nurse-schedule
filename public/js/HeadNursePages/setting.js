@@ -8,6 +8,7 @@ var dropdownItems = document.getElementsByClassName("dropdown-item");
     }
 
 function send(type,number){
+    var x = document.getElementById(type);
     $.ajax({
         headers:{
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
