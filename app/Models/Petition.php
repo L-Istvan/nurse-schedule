@@ -38,4 +38,20 @@ class Petition extends Model
         ->whereMonth('date', $month)
         ->pluck('date');
     }
+
+    /**
+     * Returns the person_id and day number, taking into account given year and month.
+     *
+     * @param [int] $group_id
+     * @param [int] $year
+     * @param [int] $month
+     * @return array `person_id` && `date`
+     */
+    public static function getPetitionByGroupId($group_id,$year,$month){
+        return self::where('group_id',$group_id)
+        ->whereYear('date',$year)
+        ->whereMonth('date', $month)
+        ->select('person_id','date')
+        ->get();
+    }
 }

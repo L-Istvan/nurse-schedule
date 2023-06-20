@@ -25,8 +25,38 @@ class Post extends Model
         'position',
     ];
 
-    static public function getShift($group_id){
+    /**
+     * Returns the person_id, date and position(day),
+     * taking into account given year and month.
+     *
+     * @param [int] $group_id
+     * @param [int] $year
+     * @param [int] $month
+     * @return array person_id, date, postition(day)
+     */
+    static public function getDay($group_id,$year,$month){
         return self::where('group_id',$group_id)
+        ->where('position',2)
+        ->whereYear('date',$year)
+        ->whereMonth('date',$month)
+        ->select('person_id','date','position')
+        ->get();
+    }
+
+    /**
+     * Returns the person_id, date and position(night),
+     * taking into account given year and month.
+     *
+     * @param [int] $group_id
+     * @param [int] $year
+     * @param [int] $month
+     * @return array person_id, date, postition(night)
+     */
+    static public function getNight($group_id,$year,$month){
+        return self::where('group_id',$group_id)
+        ->where('position',1)
+        ->whereYear('date',$year)
+        ->whereMonth('date',$month)
         ->select('person_id','date','position')
         ->get();
     }

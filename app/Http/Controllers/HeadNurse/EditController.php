@@ -4,6 +4,9 @@ namespace App\Http\Controllers\HeadNurse;
 
 use Exception;
 use App\Models\Post;
+use App\Models\Petition;
+use App\Models\Holiday;
+use App\Models\SickLeave;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -57,9 +60,40 @@ class EditController extends Controller
         }
     }
 
-    public function tableLoad(Request $request){
-        $data = $request->all();
-        $shift = Post::getShift(Auth::user()->id);
-        return response()->json([$shift],200);
+    public function tableLoadDay(Request $request){
+        $year = $request['year'];
+        $month = $request['month'];
+        $days = Post::getDay(Auth::user()->id,$year,$month);
+        return response()->json([$days],200);
+    }
+
+    public function tableLoadNight(Request $request){
+        $year = $request['year'];
+        $month = $request['month'];
+        $nights = Post::getNight(Auth::user()->id,$year,$month);
+
+        return response()->json([$nights],200);
+    }
+
+    public function table_load_petition(Request $request){
+        $year = $request['year'];
+        $month = $request['month'];
+        $petitions = Petition::getPetitionByGroupId(Auth::user()->id,$year,$month);
+
+        return response()->json([$petitions],200);
+    }
+
+    public function tableLoadHoliday(Request $reques){
+        $year = $reques['year'];
+        $month = $reques['month'];
+        $holidays = Holiday::getHolidayByGroupId(Auth::user()->id,$year,$month);
+        return response()->json([$holidays],200);
+    }
+
+    public function tableLoadSickLeave(Request $reques){
+        $year = $reques['year'];
+        $month = $reques['month'];
+        $sickLeaves = SickLeave::getSickLeaveByGroupId(Auth::user()->id,$year,$month);
+        return response()->json([$sickLeaves],200);
     }
 }

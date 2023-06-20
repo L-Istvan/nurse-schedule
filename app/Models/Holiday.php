@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use function Symfony\Component\String\b;
+
 /** columns explanation
  * id()
  * foreignId('group_id') : A head nurse's group
@@ -34,12 +36,26 @@ class Holiday extends Model
         return self::where('person_id', $person_id)->where('date', $date)->exists();
     }
 
+
     public static function getHolidaybyMonthAndUserId($person_id,$month){
         return self::where('person_id',$person_id)
         ->whereMonth('date', $month)
         ->pluck('date');
     }
 
-
-
+    /**
+     * Returns the person_id and day number, taking into account given year and month.
+     *
+     * @param [int] $group_id
+     * @param [int] $year
+     * @param [int] $month
+     * @return array person_id and date
+     */
+    public static function getHolidayByGroupId($group_id,$year,$month){
+        return self::where('group_id',$group_id)
+        ->whereYear('date',$year)
+        ->whereMonth('date',$month)
+        ->select('person_id','date')
+        ->get();
+    }
 }
