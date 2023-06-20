@@ -41,15 +41,15 @@ function prev(){
         year--;
         document.getElementById("year").innerHTML = year;
         document.getElementById("month").innerHTML = months[monthNumber];
-        emptyTable();
         tableLoad();
+        emptyTable();
         showNumberOfDaysInMonth(getNumberOfDaysInMonth(monthNumber,year));
     }
     else{
         monthNumber--;
         document.getElementById("month").innerHTML = months[monthNumber];
-        emptyTable();
         tableLoad();
+        emptyTable();
         showNumberOfDaysInMonth(getNumberOfDaysInMonth(monthNumber,year));
     }
 }
@@ -60,23 +60,26 @@ function next(){
         year++;
         document.getElementById("year").innerHTML = year;
         document.getElementById("month").innerHTML = months[monthNumber];
-        emptyTable();
         tableLoad();
+        emptyTable();
         showNumberOfDaysInMonth(getNumberOfDaysInMonth(monthNumber,year));
     }
     else{
         monthNumber++;
         document.getElementById("month").innerHTML = months[monthNumber];
-        emptyTable();
         tableLoad();
+        emptyTable();
         showNumberOfDaysInMonth(getNumberOfDaysInMonth(monthNumber,year));
     }
 }
 
 //------------------Colors---------------------
-$colorBackground = "";
-$day = "rgb(62, 126, 179)"; // blue --> value = 2
-$night = "rgb(57, 62, 70)"; //gray --> value = 1
+colorBackground = "";
+dayColor = "rgb(62, 126, 179)"; // blue --> value = 2
+nightColor = "rgb(57, 62, 70)"; //gray --> value = 1
+petitionColor = "yellow";
+holidayColor = "green";
+sickLeaveColor = "red";
 
 const tbody = document.querySelector('table');
 tbody.addEventListener('click', function (e) {
@@ -102,7 +105,7 @@ tbody.addEventListener('click', function (e) {
         }
 });
 
-//-------- Beosztás tervező button --------------
+//-------- schedule planner button--------------
 function create_schedule(){
     $.ajax({
         headers:{
@@ -116,7 +119,6 @@ function create_schedule(){
             if (xhr.status == 200){
                 toastr.success(xhr.responseText);
                 emptyTable();
-                tableLoad();
             }
             else toastr.error("Sikeretelen beosztás");
         }
@@ -124,34 +126,144 @@ function create_schedule(){
 }
 
 function tableLoad(){
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET','tableLoad',true);
-    xhr.onload = function(){
-        if (xhr.readyState === 4 && xhr.status === 200){
-            let data = JSON.parse(xhr.responseText);
-            console.log(data);
-            data[0].forEach(element => {
-                date = element['date'].split ('-');
-                //           year                           month
-                if (parseInt(date['0']) == year && parseInt(date['1']) == monthNumber+1){ //actual table
-                    for (var r = 0, n = table.rows.length; r < n; r++) { //table row
-                        if (table.rows[r].id == element['person_id']){
-                            //day
-                            if (element['position'] == 2){
-                                table.rows[r].cells[parseInt(date[2])].style.backgroundColor = $day;
-                            }
-                            //night
-                            if (element['position'] == 1 ){
-                                table.rows[r].cells[parseInt(date[2])].style.backgroundColor = $night;
-                            }
-                        }
+    if (document.getElementById("day").checked){
+        tableLoadDay(year,monthNumber+1);
+    }
+    if (document.getElementById("night").checked){
+        tableLoadNight(year,monthNumber+1);
+    }
+    if (document.getElementById("petition").checked){
+        tableLoadPetition(year,monthNumber+1);
+    }
+    if (document.getElementById("holiday").checked){
+        tableLoadHoliday(year,monthNumber+1);
+    }
+    if (document.getElementById("sickLeave").checked){
+        tableLoadSickLeave(year,monthNumber+1);
+    }
+}
+
+
+function tableLoadDay(year,month){
+    $.ajax({
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        url:'tableLoadDay',
+        data:{
+            year : year,
+            month : month
+        },
+        success: function(xhr){
+            xhr[0].forEach(element =>{
+                date = element['date'].split('-');
+                for (var r = 0, n = table.rows.length; r < n; r++) { //table row
+                    if (table.rows[r].id == element['person_id']){
+                        table.rows[r].cells[parseInt(date[2])].style.backgroundColor = dayColor;
                     }
                 }
             });
         }
-    }
-    xhr.send();
+    });
 }
+
+function tableLoadNight(year,month){
+    $.ajax({
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        url:'tableLoadNight',
+        data:{
+            year : year,
+            month : month
+        },
+        success: function(xhr){
+            xhr[0].forEach(element =>{
+                date = element['date'].split('-');
+                for (var r = 0, n = table.rows.length; r < n; r++) { //table row
+                    if (table.rows[r].id == element['person_id']){
+                        table.rows[r].cells[parseInt(date[2])].style.backgroundColor = nightColor;
+                    }
+                }
+            });
+        }
+    });
+}
+
+function tableLoadPetition(year,month){
+    $.ajax({
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        url:'table_load_petition',
+        data:{
+            year : year,
+            month : month
+        },
+        success: function(xhr){
+            xhr[0].forEach(element =>{
+                date = element['date'].split('-');
+                for (var r = 0, n = table.rows.length; r < n; r++) { //table row
+                    if (table.rows[r].id == element['person_id']){
+                        table.rows[r].cells[parseInt(date[2])].style.backgroundColor = petitionColor;
+                    }
+                }
+            });
+        }
+    });
+}
+
+function tableLoadHoliday(year,month){
+    $.ajax({
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        url: 'tableLoadHoliday',
+        data:{
+            year: year,
+            month: month
+        },
+        success: function(xhr){
+            xhr[0].forEach(element =>{
+                date = element['date'].split('-');
+                for (var r = 0, n = table.rows.length; r < n; r++) { //table row
+                    if (table.rows[r].id == element['person_id']){
+                        table.rows[r].cells[parseInt(date[2])].style.backgroundColor = holidayColor;
+                    }
+                }
+            });
+        }
+    });
+}
+
+function tableLoadSickLeave(year,month){
+    $.ajax({
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        url: 'tableLoadSickLeave',
+        data:{
+            year : year,
+            month : month
+        },
+        success: function(xhr){
+            xhr[0].forEach(element =>{
+                date = element['date'].split('-');
+                for (var r = 0, n = table.rows.length; r < n; r++) { //table row
+                    if (table.rows[r].id == element['person_id']){
+                        table.rows[r].cells[parseInt(date[2])].style.backgroundColor = sickLeaveColor;
+                    }
+                }
+            });
+        }
+    });
+}
+
 
 function emptyTable(){
   const cells = document.querySelectorAll('td');
@@ -170,12 +282,12 @@ function save() {
     for (var r = 0, n = table.rows.length; r < n; r++) {
         for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
             // Day
-            if (window.getComputedStyle(table.rows[r].cells[c],null).backgroundColor == $day){
+            if (window.getComputedStyle(table.rows[r].cells[c],null).backgroundColor == dayColor){
                 //                  EmployeeId            date                                     shift/postion
                 array[$count++] = {"id": table.rows[r].id,"date": year+"-"+(monthNumber+1)+"-"+c,"shift": 2}; // day
             }
             // night
-            if (window.getComputedStyle(table.rows[r].cells[c],null).backgroundColor ==  $night){
+            if (window.getComputedStyle(table.rows[r].cells[c],null).backgroundColor ==  nightColor){
                 //                  EmployeeId           date                                     shift/position
                 array[$count++] = {"id": table.rows[r].id,"date": year+"-"+(monthNumber+1)+"-"+c,"shift": 1}; // night
             }
@@ -197,10 +309,9 @@ function save() {
     });
 }
 
-//Beosztás törlés button
+//assignment delete button
 function drop(){
     if (confirm("Biztosan törölni szeretné a hónap beosztását?")) {
-        emptyTable();
         $.ajax({
             headers:{
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -210,7 +321,11 @@ function drop(){
             data: JSON.stringify([year,monthNumber+1]),
             contentType: 'application/json',
             complete: function(xhr){
-                if (xhr.status == 200) toastr.success(xhr.responseText);
+                if (xhr.status == 200){
+                    toastr.success(xhr.responseText);
+                    deleteColor(dayColor);
+                    deleteColor(nightColor);
+                }
                 else toastr.error(xhr.responseText);
             }
         });
@@ -218,8 +333,79 @@ function drop(){
     else {
       return false;
     }
-
 }
 
-tableLoad();
+function deleteColor(color){
+    const cells = document.querySelectorAll('td');
+
+    cells.forEach(cell => {
+        if (cell.style.backgroundColor === color){
+            cell.style.backgroundColor = 'rgba(0,0,0,0)';
+        }
+
+    });
+}
+
+
+var switches = document.querySelectorAll("input[name^=switch]");
+
+switches.forEach(function(checkbox) {
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      switch (this.id){
+        case "day":
+            tableLoadDay(year,monthNumber+1);
+            break;
+        case "night":
+            tableLoadNight(year,monthNumber+1);
+            break;
+        case "holiday":
+            tableLoadHoliday(year,monthNumber+1);
+            break;
+        case "sickLeave":
+            tableLoadSickLeave(year,monthNumber+1)
+            break;
+        case "petition":
+            tableLoadPetition(year,monthNumber+1);
+            break;
+        case "all":
+              $(document).ready(function() {
+                $('.switch').prop('checked', true);
+                if ($('.switch').prop('checked')) {
+                  tableLoad();
+                }
+              });
+            break;
+      }
+    } else {
+        switch (this.id){
+            case "day":
+                deleteColor(dayColor);
+                break;
+            case "night":
+                deleteColor(nightColor);
+                break;
+            case "holiday":
+                deleteColor(holidayColor);
+                break;
+            case "sickLeave":
+                deleteColor(sickLeaveColor);
+                break;
+            case "petition":
+                deleteColor(petitionColor);
+                break;
+            case "all":
+                $(document).ready(function() {
+                    $('.switch').prop('checked', false);
+                    if ($('.switch').prop('checked')== false) {
+                      emptyTable();
+                    }
+                  });
+                break;
+          }
+    }
+  });
+});
+
 showNumberOfDaysInMonth(getNumberOfDaysInMonth(monthNumber,year));
+tableLoad();
