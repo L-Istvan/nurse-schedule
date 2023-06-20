@@ -11,6 +11,7 @@ use App\Http\Controllers\HeadNurse\EditController;
 use App\Http\Controllers\HeadNurse\DetailsController;
 use App\Http\Controllers\HeadNurse\SettingController;
 use App\Http\Controllers\HeadNurse\GeneticController;
+use Psy\Command\EditCommand;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +36,6 @@ Route::middleware('auth','verified','nurse')->group(function(){
 
 /*---------------------------HeadNurse--------------------------------------*/
 Route::middleware('auth','verified','headNurse')->group(function(){
-    //Route::get('/Főnővér',function(){
-    //    return view('/headNursePages/index');
-    //});
     Route::get('Főnővér',[EditController::class,'index'])->name('edit');
     Route::post('sendInputEmployee',[UniqueLinkController::class,'store']);
     Route::get('addEmployer',[addEmployer::class,'index'])->name("addEmployer");
@@ -50,6 +48,11 @@ Route::middleware('auth','verified','headNurse')->group(function(){
     Route::get('setting ',[SettingController::class,'index'])->name('setting.index');
     Route::post('create_schedule',[GeneticController::class,'genetic']);
     Route::post('saveSettingValue',[SettingController::class,'store'])->name('setting.store');
+    Route::post('table_load_petition',[EditController::class,'table_load_petition']);
+    Route::post('tableLoadHoliday',[EditController::class,'tableLoadHoliday']);
+    Route::post('tableLoadSickLeave',[EditController::class,'tableLoadSickLeave']);
+    Route::post('tableLoadDay',[EditController::class,'tableLoadDay']);
+    Route::post('tableLoadNight',[EditController::class,'tableLoadNight']);
 });
 
 Route::middleware('auth')->group(function () {
