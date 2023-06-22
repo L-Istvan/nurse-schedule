@@ -7,17 +7,12 @@
         <div class="header">
             <ul>
               <li class="left"> <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a></li>
-              <li>
-                    <h3>Beálíltások</h3>
-              </li>
             </ul>
         </div>
 
 
-    <div class="row mt-4 ml-0 mr-2 ml-md-4 mr-md-4">
+    <div class="row ml-auto mr-auto" style="max-width: 1920px">
         <div class="col-12 col-md-6 col-xl-6">
-
-            <!-- ------------------------------------------------------------------------>
             <h1 class="underline-extended">Munka Beosztás</h1>
             <div class="d-flex justify-content-between">
                 <div>
@@ -151,13 +146,8 @@
                 </div>
             </div>
         </div>
-    </div>
-        <!----------------------------------------------------------------------------------------------------------------------------->
-        <!------------------------------------------------ second column --------------------------------------------------------------->
-        <!----------------------------------------------------------------------------------------------------------------------------->
-        <div class="col-0 col-md-6 col-xl-6">
 
-          <h1 class="underline-extended">Kérés</h1>
+        <h1 class="underline-extended">Kérés</h1>
           <div class="d-flex justify-content-between mt-4">
             <div>
                 <h2>Kérhető pihenőnap száma <strong>egy hónapra</strong></h2>
@@ -175,12 +165,193 @@
                     </div>
                 </div>
               </div>
-             </div>
-
-
-        </div>
+            </div>
     </div>
+        <!----------------------------------- rigth column --------------------------------------------------->
+        <div class="col-0 col-md-6 col-xl-6">
 
+            <!-------------------------------------------------------------------------------------------------------------------------->
+            <h1 class="underline-extended">Beosztás finomhangolása</h1>
+            <em>Az X jelőli a pihenő napot és a fizetett szabadságot</em>
+                <div class="row mt-3">
+
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>nappal</strong>-X
+                            </label>
+                          </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>éjszaka</strong>-X
+                            </label>
+                          </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>nappal</strong>-<strong>nappal</strong>-X
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>éjszaka</strong>-<strong>éjszaka-</strong>X
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>nappal</strong>-<strong>éjszaka-</strong>X
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>éjszaka</strong>-<strong>nappal-</strong>X
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>nappal</strong>-<strong>nappal-</strong><strong>éjszaka</strong>-X
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>nappal</strong>-<strong>éjszaka-</strong><strong>éjszaka</strong>-X
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>nappal</strong>-<strong>nappal-</strong><strong>nappal</strong>-X
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>éjszaka</strong>-<strong>éjszaka-</strong><strong>éjszaka</strong>-X
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>éjszaka</strong>-<strong>nappal-</strong><strong>nappal</strong>-X
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>éjszaka</strong>-<strong>éjszaka-</strong><strong>nappal</strong>-X
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>nappal</strong>-<strong>éjszaka-</strong><strong>nappal</strong>-X
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>éjszaka</strong>-<strong>nappal-</strong><strong>éjszaka</strong>-X
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>nappal</strong>-<strong>éjszaka-</strong><strong>nappal</strong>-X
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                X-<strong>éjszaka</strong>-<strong>nappal-</strong><strong>éjszaka</strong>-X
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                               <strong>Foyltonos</strong> ciklusos beosztás : <strong>nappal</strong>-<strong>éjszaka</strong>-<strong>pihenő</strong> és újra
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h1 class="underline-extended">Értesítések</h1>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Automatikus értesítés ha készen van az újabb beosztás
+                            </label>
+                        </div>
+                    </div>
+                </div>
+        </div>
 </div>
 
 <script src="js/HeadNursePages/setting.js"></script>
