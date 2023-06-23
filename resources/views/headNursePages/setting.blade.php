@@ -149,7 +149,7 @@
 
         <h1 class="underline-extended">Kérés</h1>
           <div class="d-flex justify-content-between mt-4">
-            <div>
+            <div class="mb-5">
                 <h2>Kérhető pihenőnap száma <strong>egy hónapra</strong></h2>
                 <em>Dolgozó mennyi kijelölt pihenő napot kérhet </em>
             </div>
@@ -177,7 +177,7 @@
 
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="n" @if ($check['n']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>nappal</strong>-X
                             </label>
@@ -186,7 +186,7 @@
 
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="e" @if ($check['e']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>éjszaka</strong>-X
                             </label>
@@ -196,7 +196,7 @@
                 <div class="row mt-3">
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="nn" @if ($check['nn']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>nappal</strong>-<strong>nappal</strong>-X
                             </label>
@@ -205,7 +205,7 @@
 
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="ee" @if ($check['ee']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>éjszaka</strong>-<strong>éjszaka-</strong>X
                             </label>
@@ -217,7 +217,7 @@
                 <div class="row mt-3">
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="ne" @if ($check['ne']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>nappal</strong>-<strong>éjszaka-</strong>X
                             </label>
@@ -226,7 +226,7 @@
 
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="en" @if ($check['en']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>éjszaka</strong>-<strong>nappal-</strong>X
                             </label>
@@ -237,7 +237,7 @@
                 <div class="row mt-3">
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="nne" @if ($check['nne']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>nappal</strong>-<strong>nappal-</strong><strong>éjszaka</strong>-X
                             </label>
@@ -245,7 +245,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="nee" @if ($check['nee']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>nappal</strong>-<strong>éjszaka-</strong><strong>éjszaka</strong>-X
                             </label>
@@ -256,7 +256,7 @@
                 <div class="row mt-3">
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="nnn" @if ($check['nnn']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>nappal</strong>-<strong>nappal-</strong><strong>nappal</strong>-X
                             </label>
@@ -264,7 +264,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="eee" @if ($check['eee']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>éjszaka</strong>-<strong>éjszaka-</strong><strong>éjszaka</strong>-X
                             </label>
@@ -275,7 +275,7 @@
                 <div class="row mt-3">
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="enn" @if ($check['enn']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>éjszaka</strong>-<strong>nappal-</strong><strong>nappal</strong>-X
                             </label>
@@ -283,7 +283,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="een" @if ($check['een']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>éjszaka</strong>-<strong>éjszaka-</strong><strong>nappal</strong>-X
                             </label>
@@ -294,7 +294,7 @@
                 <div class="row mt-3">
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="nen" @if ($check['nen']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>nappal</strong>-<strong>éjszaka-</strong><strong>nappal</strong>-X
                             </label>
@@ -302,26 +302,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                X-<strong>éjszaka</strong>-<strong>nappal-</strong><strong>éjszaka</strong>-X
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                X-<strong>nappal</strong>-<strong>éjszaka-</strong><strong>nappal</strong>-X
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="ene" @if ($check['ene']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>éjszaka</strong>-<strong>nappal-</strong><strong>éjszaka</strong>-X
                             </label>
@@ -332,7 +313,7 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
                             <label class="form-check-label" for="flexCheckDefault">
                                <strong>Foyltonos</strong> ciklusos beosztás : <strong>nappal</strong>-<strong>éjszaka</strong>-<strong>pihenő</strong> és újra
                             </label>
@@ -344,7 +325,7 @@
                     <div class="col-12">
                         <h1 class="underline-extended">Értesítések</h1>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
                             <label class="form-check-label" for="flexCheckDefault">
                                 Automatikus értesítés ha készen van az újabb beosztás
                             </label>
