@@ -5,13 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Nurse\IndexController;
 use App\Http\Controllers\HeadNurse\addEmployer;
 use App\Http\Controllers\UniqueLinkController;
-use App\Models\UniqueLink;
 use App\Http\Controllers\HeadNurse\HeadIndexController;
 use App\Http\Controllers\HeadNurse\EditController;
 use App\Http\Controllers\HeadNurse\DetailsController;
 use App\Http\Controllers\HeadNurse\SettingController;
 use App\Http\Controllers\HeadNurse\GeneticController;
-use Psy\Command\EditCommand;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +51,7 @@ Route::middleware('auth','verified','headNurse')->group(function(){
     Route::post('tableLoadSickLeave',[EditController::class,'tableLoadSickLeave']);
     Route::post('tableLoadDay',[EditController::class,'tableLoadDay']);
     Route::post('tableLoadNight',[EditController::class,'tableLoadNight']);
+    Route::post('saveFormCheckInputs',[SettingController::class,'storeFormCheckInputs']);
 });
 
 Route::middleware('auth')->group(function () {

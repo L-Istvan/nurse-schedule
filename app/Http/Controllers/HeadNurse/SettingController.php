@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\HeadNurse;
 
 use App\Models\Setting;
+use App\Models\schedule_settings;
 use Illuminate\Http\Request;
-use function Pest\Laravel\json;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use Illuminate\Support\Facades\Schema;
 
 class SettingController extends Controller
 {
     public function index(){
         $arr = Setting::getSettingbyAuth(Auth::user()->id);
-        return view('headNursePages/setting',["setting" => $arr]);
+        $check = schedule_settings::where('group_id',Auth::user()->id)->first();
+        return view('headNursePages/setting',["setting" => $arr,'check' => $check]);
     }
 
     public function store(Request $request){
@@ -58,6 +60,22 @@ class SettingController extends Controller
 
         }
         return response("Sikeres mentés");
+    }
+
+    public function storeFormCheckInputs(Request $request){
+        $request->validate([
+            'id' => ['required','string','max:5','regex:/^[a-z]+$/'],
+            'value' => ['required','boolean'],
+        ]);
+        $data = json_decode($request->getContent(), true);
+        $column = Str::snake($data['id']);
+        if (Schema::hasColumn('schedule_settings',$column)) {
+            $schedule_settings = schedule_settings::where('group_id',Auth::user()->id)->first();
+            $schedule_settings->$column= $data['value'];
+            $schedule_settings->update();
+            return response("Sikeres mentés");
+        }
+        return response("Sikertelen mentés");
     }
 }
 
