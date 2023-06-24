@@ -5,13 +5,15 @@ namespace App\Http\Controllers\HeadNurse;
 use Exception;
 use App\Models\Post;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Genetic;
+use App\Http\Controllers\Chromosome;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use App\Http\Controllers\GeneticTools;
-use App\Http\Controllers\Chromosome;
-use App\Http\Controllers\Genetic;
+use Barryvdh\Debugbar\Facades\Debugbar;
+use App\Utils\StringSearch;
 
 class GeneticController extends Controller
 {
@@ -45,7 +47,7 @@ class GeneticController extends Controller
     }
 
 
-    //kezdezi chromosome létrehozása
+    //kezdeti chromosome létrehozása
     public function createPeliminaryChromosome($sorted_user,$monthDayNumber,$max,$min){
         //NAPPAL : 7
         //ÉJSZAKA : 6
@@ -103,8 +105,10 @@ class GeneticController extends Controller
         $month = $request[1];
         $last_day_in_month = $request[2];
 
-        $genetic = new Genetic();
-        Debugbar::info($genetic->workTime(22,0,0    ));
+        $genetic = new GeneticTools();
+        $data = [1,0,1,0,1,0,0,]; //02110
+        $index = 3;
+        Debugbar::info($genetic->rule(1,$index,$data));
 
         return response("Az új beosztás elkészült");
     }
