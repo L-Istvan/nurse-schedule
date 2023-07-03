@@ -47,7 +47,7 @@ class GeneticTools
 
 
     /**
-     *  Sorts the given array of users based on the number of values less than 1.
+     *  Sorts the given array of users based on the number of values less than 0.
      *
      * @param [array] $arr The array is multi dimension array and specific.
      * @return array Sorted in descending order
@@ -55,7 +55,7 @@ class GeneticTools
     public function sortedUser($arr){
         $collection = collect($arr)->sortByDesc(function ($item) {
             $count = collect($item)->flatten()->filter(function ($value) {
-                return $value < 1;
+                return $value < 0;
             })->count();
                 return $count;
         });
@@ -114,14 +114,14 @@ class GeneticTools
      * taking into account rule or more exactly the shifts, sick leave, holidays and petitions  .
      *
      * @param integer $shift
-     * @param integer $index The index start at zero.
+     * @param integer $index The index start at 1.
      * @param array $data The data is a simple array consisting of integers.
      * @return true/false True if there is no schedule conflict.
      */
     public function rule(int $shift, int $index, array $data){
         $rule = ["020","010","0220","0110","0210","02210","02110"];
         $i = $index;
-        $indexmin = 0;
+        $indexmin = 1;
         $indexmax = count($data);
         $value = true;
         $current = "";
@@ -142,7 +142,7 @@ class GeneticTools
             $current .= $shift; //given shift
 
             //right
-            while($value == true && $i !== $indexmax-1){
+            while($value == true && $i !== $indexmax){
                 $i++;
                 if ($data[$i] <= 0 ) $value = false;
                 else $current .= (string)$data[$i];
@@ -153,5 +153,76 @@ class GeneticTools
             return collect($rule)->contains($current);
         }
         return false;
+    }
+
+    /**
+     * Counts all employee's holidays and sick leaves.
+     *
+     * @param array $individual
+     * @param integer $holiday
+     * @param integer $sick_leave
+     * @param integer $work_day_in_month
+     * @return array The array's appearance : $result[id] = work_time
+     */
+    public function totalWorkTimeTable(array $individual,int $holiday,
+                                        int $sick_leave, int $work_day_in_month){
+        $result = [];
+        foreach ($individual as $id => $days){
+            $holiday_count = 0;
+            $sickLeave_count = 0;
+            $count = array_count_values($days);
+            if (isset($count[$holiday])) $holiday_count = $count[$holiday];
+            if (isset($count[$sick_leave])) $sickLeave_count = $count[$sick_leave];
+            $work_time = $this->workTime($work_day_in_month,$holiday_count,$sickLeave_count);
+            $result[$id] = $work_time;
+        }
+        return $result;
+    }
+
+    public function rule2(int $shift, int $index, array $data){
+        $rule = ["020","010","0220","0110","0210","02210","02110"];
+        $i = $index;
+        $indexmin = 1;
+        $indexmax = count($data);
+        $value = true;
+        $current = "";
+
+        if (0 < $data[$index]){ //empty
+            //left
+            while($value == true && $i !== $indexmin){
+                $i--;
+                if ($data[$i] <= 0 ) $value = false;
+                else $current .= (string)$data[$i];
+            }
+
+            //middle
+            $value = true;
+            $i = $index;
+            $current .= "0";
+            $current = strrev($current);
+            $current .= $shift; //given shift
+
+            //right
+            while($value == true && $i !== $indexmax){
+                $i++;
+                if ($data[$i] <= 0 ) $value = false;
+                else $current .= (string)$data[$i];
+            }
+            $current .= "0";
+
+            //check
+            return collect($rule)->contains($current);
+        }
+        return false;
+    }
+
+    public function checkMutation(array $individual,$shift){
+        $days = [];
+        foreach($individual as $day => $value){
+            if($this->rule2($shift,$day,$individual)){
+                $days[] = $day;
+            }
+        }
+        return $days;
     }
 }

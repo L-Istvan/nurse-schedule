@@ -18,82 +18,31 @@ use App\Utils\StringSearch;
 class GeneticController extends Controller
 {
     public function store($arr,$year,$month){
-        foreach ($arr as $day => $values){
-            foreach ($values as $id){
-                try {
-                    if (0 < $id){
-                        $post = Post::firstOrCreate([
-                            'group_id' => Auth::user()->id,
-                            'person_id' => $id,
-                            'date' => $year."-".$month."-".$day,
-                            'position' => 2
-                        ]);
-                    }
-
-                    else{
-                        $post = Post::firstOrCreate([
-                            'group_id' => Auth::user()->id,
-                            'person_id' => abs($id),
-                            'date' => $year."-".$month."-".$day,
-                            'position' => 1
-                        ]);
-                    }
-                } catch (Exception $ex) {
-                    Debugbar::error("HIBA");
-                    Debugbar::info($ex);
+        foreach($arr as $id => $shifts){
+            foreach($shifts as $day => $shift)
+            try {
+                if ($shift == 2){
+                    $post = Post::firstOrCreate([
+                        'group_id' => Auth::user()->id,
+                        'person_id' => $id,
+                        'date' => $year."-".$month."-".$day,
+                        'position' => 2
+                    ]);
                 }
+
+                if ($shift == 1 ){
+                    $post = Post::firstOrCreate([
+                        'group_id' => Auth::user()->id,
+                        'person_id' => abs($id),
+                        'date' => $year."-".$month."-".$day,
+                        'position' => 1
+                    ]);
+                }
+            } catch (Exception $ex) {
+                Debugbar::error("HIBA");
+                Debugbar::info($ex);
             }
         }
-    }
-
-
-    //kezdeti chromosome létrehozása
-    public function createPeliminaryChromosome($sorted_user,$monthDayNumber,$max,$min){
-        //NAPPAL : 7
-        //ÉJSZAKA : 6
-        $chromosome = [];
-
-        foreach ($sorted_user as $id => $values){
-            $free = [];
-
-            // bele töltés szabadokba
-            foreach ($values as $day =>$value ){
-                if ($value == 1) $free[] = $day; // free[3,4,5,6,7,11,12]
-            }
-
-            // óra szám kiszámolása
-
-            // nappal 7 (pozitiv id)
-            for ($i=0;$i<7;$i++){
-                $randomIndex = array_rand($free);
-                $selectedElement = $free[$randomIndex];
-                unset($free[$randomIndex]);
-                $chromosome[$selectedElement][] = $id;
-            }
-
-            //éjszaka 6 (negatív id)
-            for ($i=0;$i<6;$i++){
-                $randomIndex = array_rand($free);
-                $selectedElement = $free[$randomIndex];
-                unset($free[$randomIndex]);
-                $chromosome[$selectedElement][] = $id * -1;
-            }
-
-        }
-        return $chromosome;
-    }
-
-    public function createPeliminaryPopulation($users,$canWorkOnThisDay,$population_size,$monthDayNumber,$max,$min,$days,$nights){
-        $chromosome = [];
-        $population = [];
-        //main loop
-        for ($i=0;$i<$population_size;$i++){ //population
-            for($m=0;$m<$monthDayNumber;$m++){ //28 29 30 31
-                $chromosome[$m] = Arr::random($users);
-            }
-            $population[] = $chromosome;
-        }
-        return $population;
     }
 
     /**
@@ -105,11 +54,28 @@ class GeneticController extends Controller
         $month = $request[1];
         $last_day_in_month = $request[2];
 
-        $genetic = new GeneticTools();
-        $data = [1,0,1,0,1,0,0,]; //02110
-        $index = 3;
-        Debugbar::info($genetic->rule(1,$index,$data));
-
+        $g = new Genetic($year,$month,$last_day_in_month,200,0.2,10);
+        //$g->main();
+        //$this->writeToFile($g->main());
+        $this->store($g->main(),$year,$month);
         return response("Az új beosztás elkészült");
+    }
+
+    public function writeToFile($arr)
+    {
+        $file = fopen('/home/ubuntu/Dokumentumok/file.txt', 'w'); // Nyitás írás módra
+        foreach ($arr as $item){
+            foreach($item as $id){
+                foreach ($id as $day){
+                    fwrite($file, $day); // Kiírás a fájlba
+                }
+                fwrite($file,PHP_EOL);
+            }
+            fwrite($file,"-----------------------------------".PHP_EOL);
+        }
+
+        fclose($file); // Fájl bezárása
+
+        return 'A tömb kiírása sikeresen megtörtént.';
     }
 }
