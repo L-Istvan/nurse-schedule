@@ -216,7 +216,6 @@ class Genetic extends GeneticTools
         $population = $this->initialPopulation($sorted_arr);
 
         for ($w=0;$w<400;$w++){
-        Debugbar::info("???");
         $new_population = [];
         $fitness_array = [];
         // FITNESS
