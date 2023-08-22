@@ -7,6 +7,7 @@
 <div class="content-wrapper" style="background-color: rgb(237, 242, 248);">
     Fejlesztés alatt...
     test....
+
  </div>
 
  @endsection
