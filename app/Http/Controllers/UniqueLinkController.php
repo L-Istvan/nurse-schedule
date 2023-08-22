@@ -23,6 +23,7 @@ class UniqueLinkController extends Controller
             'selectedEducation.required' => "Nincs kiválasztva a végzettség.",
             'inputEmail.email' => "Érvénytelen email formátum.",
         ]);
+
         $link = Str::random(16);
         $uniqueLink = new UniqueLink();
         $uniqueLink->link = $link;
@@ -31,10 +32,10 @@ class UniqueLinkController extends Controller
         $uniqueLink->email = $request->inputEmail;
         $uniqueLink->education = $request->selectedEducation;
         $uniqueLink->rank = $request->inputRank;
+
         try {
             $uniqueLink->save();
-            mail($request->inputName, 'NurseSchedules', 'Regisztrácios link : nurseschedules.nhely.hu/registerLink/'.$link, 'From: nurseschedules@nurseschedules.nhely.hu');
-            return response()->json(['message' => 'Sikeresen elküdve a regisztráció link.'],200);
+            mail($request->inputEmail, 'Apolobeostas regisztráció link', 'Regisztrácios link : nurseschedules.nhely.hu/registerLink/'.$link, 'From: info@apolobeosztas.hu');
         } catch (\Illuminate\Database\QueryException $ex) {
             $errorCode = $ex->errorInfo[1];
             if ($errorCode == 1062) return response()->json(['message'=> 'Erre az email címre már érkezett regisztrációs link, próbálja meg később'],500);
@@ -44,6 +45,8 @@ class UniqueLinkController extends Controller
                 return response()->json(['message' => 'Sikertelen regisztráció kűldés, próbálja meg később'],500);
             }
         }
+
+        return response()->json(['message' => 'Sikeresen elküdve a regisztráció link.'],200);
     }
 
 }
