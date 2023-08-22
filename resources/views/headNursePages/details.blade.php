@@ -6,12 +6,7 @@
 
 <div class="content-wrapper" style="background-color: rgb(237, 242, 248);">
     Fejlesztés alatt...
-    fdgkdflgdf
-    @guest
-        fdg
-        fdg
-        fd
-    @endguest
+    test....
  </div>
 
  @endsection
