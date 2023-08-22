@@ -11,28 +11,15 @@ use App\Http\Controllers\HeadNurse\DetailsController;
 use App\Http\Controllers\HeadNurse\SettingController;
 use App\Http\Controllers\HeadNurse\GeneticController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth');
 
-/*-----------------------Employee(nurse)----------------------------------*/
 Route::middleware('auth','verified','nurse')->group(function(){
     Route::get('/', 'App\Http\Controllers\Nurse\IndexController@show');
     Route::get('/getdata', [IndexController::class, 'getData']);
     Route::post('/sendCalendarData',[IndexController::class,'store']);
 });
 
-/*---------------------------HeadNurse--------------------------------------*/
 Route::middleware('auth','verified','headNurse')->group(function(){
     Route::get('Főnővér',[EditController::class,'index'])->name('edit');
     Route::post('sendInputEmployee',[UniqueLinkController::class,'store']);
