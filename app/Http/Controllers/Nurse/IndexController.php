@@ -14,29 +14,8 @@ use Barryvdh\Debugbar\Facades\Debugbar;
 
 class IndexController extends Controller
 {
-    public function show(){
-        return view('nursePages/index',[
-            'settingArray'=> Setting::getSettingbyUserId(Auth::user()->id),
-    ]);
-    }
 
-    public function getData(){
-        $holidayData = Holiday::getHolidaybyUserId(Auth::user()->id);
-        $sickLeaveData = SickLeave::getSickLeavebyUserId(Auth::user()->id);
-        $petitonData = Petition::getPetitionbyUserId(Auth::user()->id);
-        return response()->json([$holidayData,$sickLeaveData,$petitonData]);
-    }
-
-    /**
-     * This function is primarily designed for the 'store' function,
-     * which can save data to the database
-     * @param [class] Holiday()/Petiton()/SickLeave() $model
-     * @param [integer] $group_id
-     * @param [integer] $person_id
-     * @param [date] $date
-     * @return void
-     */
-    function save($model,$group_id,$person_id,$date){
+    private function save($model,$group_id,$person_id,$date){
         $model->group_id = $group_id;
         $model->person_id = $person_id;
         $model->date = $date;
@@ -44,18 +23,20 @@ class IndexController extends Controller
         $model->save();
     }
 
-    /**
-     * If the user adds new events to the calender,
-     * this function checks it
-     * check: Is there an event that day
-     * check: does not exceed the maximums
-     * @param Request $request
-     * @return response
-     */
+    public function show(){
+        return view('nursePages/index',[
+            'settingArray'=> Setting::getSettingbyUserId(Auth::user()->id),
+        ]);
+    }
+
     public function store(Request $request){
 
-        $data = json_decode($request->getContent(), true);
-        $group_id = 1; //WAIT PETITONS TABLE
+        if (User::checkUser(Auth::user()->id,Auth::user()->email) === false){
+            return response("Nem megfelelő jogosultság", 403);
+        }
+
+        $data = json_decode($request->input('dates'),true);
+        $group_id = User::getGroup_id(Auth::user()->id);
         $setting = Setting::getSettingbyUserId(Auth::user()->id);
 
         $currentPetiton = $setting->first()->currentPetitons;
@@ -63,15 +44,12 @@ class IndexController extends Controller
         $currentYearHoliday = $setting->first()->currentYearHoliday;
         $currentSickLeave = $setting->first()->sickLeaves;
 
-        $change = false;
-
-
         foreach ($data as $d) {
             switch ($d['title']) {
                 case 'Kérés':
                     if (Petition::searchDate(Auth::user()->id,$d['date']) === false &&
                         $setting->first()->maxPetitons > $currentPetiton){
-                            self::save(new Petition(),$group_id,Auth::user()->id,$d['date']);
+                            $this->save(new Petition(),$group_id,Auth::user()->id,$d['date']);
                             $currentPetiton++;
                             $change = true;
                         }
@@ -80,7 +58,7 @@ class IndexController extends Controller
                     if (Holiday::searchDate(Auth::user()->id,$d['date']) === false &&
                         $setting->first()->maxMonthHoliday > $currentMonthHoliday &&
                         $setting->first()->maxYearHoliday > $currentYearHoliday){
-                            self::save(new Holiday(),$group_id,Auth::user()->id,$d['date']);
+                            $this->save(new Holiday(),$group_id,Auth::user()->id,$d['date']);
                             $currentMonthHoliday++;
                             $currentYearHoliday++;
                             $change = true;
@@ -88,7 +66,7 @@ class IndexController extends Controller
                     break;
                 case 'Beteg Szabadság':
                     if (SickLeave::searchDate(Auth::user()->id,$d['date']) ===  false){
-                        self::save(new SickLeave(),$group_id,Auth::user()->id,$d['date']);
+                        $this->save(new SickLeave(),$group_id,Auth::user()->id,$d['date']);
                         $currentSickLeave++;
                         $change = true;
                     }
@@ -110,4 +88,13 @@ class IndexController extends Controller
             return response("Nem történt változás",204);
         }
     }
+
+    public function getData(){
+        $holidayData = Holiday::getHolidaybyUserId(Auth::user()->id);
+        $sickLeaveData = SickLeave::getSickLeavebyUserId(Auth::user()->id);
+        $petitonData = Petition::getPetitionbyUserId(Auth::user()->id);
+        return response()->json([$holidayData,$sickLeaveData,$petitonData]);
+    }
+
+
 }

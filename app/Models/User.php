@@ -73,6 +73,12 @@ class User extends Authenticatable
         return $this->hasMany(Setting::class);
     }
 
+    public static function checkUser($person_id,$email){
+        return self::where('id',$person_id)
+            ->where('email',$email)
+            ->exists();
+    }
+
     static public function getUserbyGroupId($group_id){
         return self::where('group_id',$group_id)->get();
     }
@@ -102,5 +108,9 @@ class User extends Authenticatable
 
     static public function getPersonId($group_id){
         return self::where('group_id',$group_id)->pluck('id');
+    }
+
+    public static function getGroup_id($person_id){
+        return self::where('id', $person_id)->pluck('group_id')->first();
     }
 }

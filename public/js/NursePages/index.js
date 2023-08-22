@@ -1,12 +1,9 @@
-//--------------------------------------------------------
-//-----------initalization of starting values-------------
 var chosen = "Kérés";
 var eventColor = "rgb(9, 147, 20)";
 var eventID = 0;
 var forbidden_day = [];
 
 
-//--------------------------------------------------------
 //----------------------Calendar--------------------------
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -111,43 +108,6 @@ function betegSzabadsag(){
 //-----------------------------------------------------------
 //---------------calendar check, add or delete---------------
 //----------------------functions----------------------------
-function ConditionalSelection(chosen,evenTtitle,increase){
-    if (increase == "+"){
-        switch (chosen) {
-        case "Kérés":
-            return numberUp("maxPetitons","currentPetitons");
-
-        case "Szabadság":
-            if (numberUp("maxYearHoliday","currentYearHoliday") === 1)
-                if (numberUp("maxMonthHoliday","currentMonthHoliday") === 1)
-                    return 1;
-                else return 0;
-            else return 0;
-
-        case "Beteg Szabadság":
-            return numberUp("maxYearHoliday","SickLeaves");
-        }
-    }
-    //delete "-"
-    else{
-        switch (evenTtitle) {
-        case "Kérés":
-            numberdown("maxPetitons","currentPetitons");
-            return 1;
-
-        case "Szabadság":
-            numberdown("maxMonthHoliday","currentMonthHoliday");
-            numberdown("maxYearHoliday","currentYearHoliday");
-            return 1;
-
-        case "Beteg Szabadság":
-            numberdown("maxYearHoliday","SickLeaves");
-            return 1;
-        }
-    }
-    return 0;
-}
-
 
 function numberUp($max,$current){
     var maxNumber = parseInt(document.getElementById($max).innerHTML);
@@ -172,22 +132,61 @@ function numberdown($max,$current){
     currentNumber.innerHTML = number;
 }
 
+function ConditionalSelection(chosen,evenTtitle,increase){
+    if (increase == "+"){
+        switch (chosen) {
+        case "Kérés":
+            return numberUp("maxPetitons","currentPetitons");
+
+        case "Szabadság":
+            if (numberUp("maxYearHoliday","currentYearHoliday") === 1)
+                if (numberUp("maxMonthHoliday","currentMonthHoliday") === 1)
+                    return 1;
+                else return 0;
+            else return 0;
+
+        case "Beteg Szabadság":
+            return 1
+        }
+    }
+    //delete "-"
+    else{
+        switch (evenTtitle) {
+        case "Kérés":
+            numberdown("maxPetitons","currentPetitons");
+            return 1;
+
+        case "Szabadság":
+            numberdown("maxMonthHoliday","currentMonthHoliday");
+            numberdown("maxYearHoliday","currentYearHoliday");
+            return 1;
+
+        case "Beteg Szabadság":
+            numberdown("maxYearHoliday","SickLeaves");
+            return 1;
+        }
+    }
+    return 0;
+}
+
 //-----------------------------------------------------------
 //------------------upload data in calendar------------------
 //------------------------functions--------------------------
 function save() {
-    var array = []; // inicializáljuk a tömböt
+    var array = [];
     calendar.getEvents().forEach(element => {
-      array.push({"id": element.id, "title": element.title, "date": element.startStr}); // hozzáadjuk az elemeket a tömbhöz
+      array.push({"id": element.id, "title": element.title, "date": element.startStr});
     });
     $.ajax({
         headers:{
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        type: 'POST',
+        method: 'POST',
         url: '/sendCalendarData',
-        data: JSON.stringify(array),
-        contentType: 'application/json',
+        data:{
+            dates : JSON.stringify(array),
+        },
+        dataType: 'json',
         complete: function(xhr){
             if(xhr.status == 200) toastr.success("Sikeres mentés");
             else if(xhr.status == 204) toastr.warning("Nem történt változás");

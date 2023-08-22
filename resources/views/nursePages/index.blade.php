@@ -8,6 +8,7 @@
 
 <div class="content-wrapper background">
   <!-- Main content -->
+  <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars" style="background-color: white"></i></a>
   <section class="content">
     <div class="container-fluid">
       <div class="row">
@@ -34,7 +35,7 @@
                         <span id="currentYearHoliday">{{$settingArray->first()->currentYearHoliday}}</span>
                     </h5>
                     <h5 class="text-center mb-4">Beteg szabadság:
-                        <span id="SickLeaves">{{$settingArray->first()->SickLeaves}} </span>
+                        <span id="SickLeaves"></span>
                     </h5>
                 @else
                     <h5 class="text-center mt-3 mb-3">Kérés: - / -</h5>

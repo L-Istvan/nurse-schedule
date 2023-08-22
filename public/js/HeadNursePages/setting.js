@@ -46,15 +46,13 @@ var dropdownItems = document.getElementsByClassName("dropdown-item");
 for (var i = 0; i < dropdownItems.length; i++) {
     dropdownItems[i].addEventListener("click", function() {
         var selectedValue = this.textContent;
-        send(this.id,selectedValue);
+        sendDropdownItems(this.id,selectedValue);
     });
 }
 
 var formCheckInputs = document.getElementsByClassName('form-check-input');
 for (var i = 0; i < formCheckInputs.length; i++) {
     formCheckInputs[i].addEventListener("click", function() {
-        console.log(this.checked);
-        console.log(this.id);
         sendformCheckInputs(this.id,this.checked);
     });
 }
