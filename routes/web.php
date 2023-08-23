@@ -15,9 +15,10 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth');
 
 Route::middleware('auth','verified','nurse')->group(function(){
-    Route::get('/', 'App\Http\Controllers\Nurse\IndexController@show');
-    Route::get('/getdata', [IndexController::class, 'getData']);
-    Route::post('/sendCalendarData',[IndexController::class,'store']);
+    Route::get('/',[IndexController::class,'index'])->name('indexController.index');
+    Route::get('/getRestPeriods', [IndexController::class, 'getRestPeriods'])->name('indexController.getRestPeriods');
+    Route::post('/sendCalendarData',[IndexController::class,'store'])->name('indexController.store');
+    Route::post('/getScheduledDates',[IndexController::class,'show'])->name('indexController.show');
 });
 
 Route::middleware('auth','verified','headNurse')->group(function(){

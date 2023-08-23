@@ -61,6 +61,14 @@ class Post extends Model
         ->get();
     }
 
+    public static function getScheduledDaybyPersonId($person_id,$year,$month){
+        return self::where('person_id',$person_id)
+            ->whereYear('date',$year)
+            ->whereMonth('date',$month)
+            ->select('date','position')
+            ->get();
+    }
+
     static public function getAllData($group_id){
         $user = new User();
         return self::leftJoin('users','posts.person_id', '=', 'users.id')

@@ -216,52 +216,52 @@ class Genetic extends GeneticTools
         $population = $this->initialPopulation($sorted_arr);
 
         for ($w=0;$w<400;$w++){
-        $new_population = [];
-        $fitness_array = [];
-        // FITNESS
-        $min_index = [];
-        $min = 1000;
-        $max = 0;
-        $max_index = [];
-        foreach ($population as $key => $individual){
-            $fitness_value = $this->fitness($individual,$totoalWorkTimeTable,3,4,2,3);
-            $fitness_array[] = $fitness_value;
-            if ($max < $fitness_value){
-                $max = $fitness_value;
-                $max_index = $population[$key];
+            $new_population = [];
+            $fitness_array = [];
+            // FITNESS
+            $min_index = [];
+            $min = 1000;
+            $max = 0;
+            $max_index = [];
+            foreach ($population as $key => $individual){
+                $fitness_value = $this->fitness($individual,$totoalWorkTimeTable,3,4,2,3);
+                $fitness_array[] = $fitness_value;
+                if ($max < $fitness_value){
+                    $max = $fitness_value;
+                    $max_index = $population[$key];
+                }
+                if ($min > $fitness_value){
+                    $min = $fitness_value;
+                    $min_index = $population[$key];
+                }
             }
-            if ($min > $fitness_value){
-                $min = $fitness_value;
-                $min_index = $population[$key];
+
+            //nővekvő sorrendbe rendezés
+            $aMAX = $max_index;
+            $bMIN = $min_index;
+            array_multisort($fitness_array,$population);
+
+            //elitizmus
+            $elit1 = $population[count($population)-1];
+            $elit2 = $population[count($population)-2];
+            $elit3 = $population[count($population)-3];
+            $elit4 = $population[count($population)-4];
+
+            //keresztezés és mutáció
+            for ($i=0; $i<count($population)/2-2;$i++){
+                $children = $this->twoPointCrossover($this->rouletteSelection($population,$fitness_array),
+                                                    $this->rouletteSelection($population,$fitness_array));
+                $new_population[] = $this->mutation($children[0]);
+                $new_population[] = $this->mutation($children[1]);
             }
-        }
 
-        //nővekvő sorrendbe rendezés
-        $aMAX = $max_index;
-        $bMIN = $min_index;
-        array_multisort($fitness_array,$population);
+            $new_population [] = $elit1;
+            $new_population [] = $elit2;
+            $new_population [] = $elit3;
+            $new_population [] = $elit4;
 
-        //elitizmus
-        $elit1 = $population[count($population)-1];
-        $elit2 = $population[count($population)-2];
-        $elit3 = $population[count($population)-3];
-        $elit4 = $population[count($population)-4];
-
-        //keresztezés és mutáció
-        for ($i=0; $i<count($population)/2-2;$i++){
-            $children = $this->twoPointCrossover($this->rouletteSelection($population,$fitness_array),
-                                                $this->rouletteSelection($population,$fitness_array));
-            $new_population[] = $this->mutation($children[0]);
-            $new_population[] = $this->mutation($children[1]);
-        }
-
-        $new_population [] = $elit1;
-        $new_population [] = $elit2;
-        $new_population [] = $elit3;
-        $new_population [] = $elit4;
-
-        $population = $new_population;
-        Debugbar::info($max);
+            $population = $new_population;
+            Debugbar::info($max);
         }
 
         return $elit1;
