@@ -10,6 +10,6 @@
         margin-right: auto;
     }
 </style>
-<button {{ $attributes->merge(['type' => 'submit', 'class' => 'button mt-4 mb-6']) }}>
+<button {{ $attributes->merge(['type' => 'submit', 'class' => 'button mt-4 mb-6','id' => 'login']) }}>
     {{ $slot }}
 </button>

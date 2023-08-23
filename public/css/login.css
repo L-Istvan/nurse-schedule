@@ -1,0 +1,9 @@
+.select {
+    color: #80b0f7;
+    font-size: 20px;
+    background-color: transparent;
+    border-color: transparent;
+    -webkit-appearance: none;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}

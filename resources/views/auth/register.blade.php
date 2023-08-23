@@ -1,4 +1,11 @@
 <x-guest-layout>
+    <div class="text-center" style="color: white; magin-bottom:20px">
+       Főnővér vagy?
+    </div>
+    <div class="text-center" style="color: white; magin-bottom:20px">
+        Regisztrálj és hozz létre egy csoportot.
+     </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
