@@ -4,6 +4,11 @@
 <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 
 <div class="content-wrapper" style="background-color: rgb(237, 242, 248);">
+
+    <div class="loading-overlay" id="loadingOverlay" style="display: none">
+        <div class="loading-spinner"></div>
+    </div>
+
     <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a>
     <div class="card mx-auto mt-4 mb-4" style="max-width: 1210px;">
         <div class="card-body">
@@ -124,6 +129,7 @@
             </div>
   <div style="overflow-x:auto;">
     <table id="table" class="">
+
         <section class="table-header">
 
         </section>

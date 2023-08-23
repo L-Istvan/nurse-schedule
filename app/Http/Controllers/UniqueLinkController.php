@@ -35,7 +35,7 @@ class UniqueLinkController extends Controller
 
         try {
             $uniqueLink->save();
-            mail($request->inputEmail, 'Apolobeostas regisztráció link', 'Regisztrácios link : https://www.apolobeosztas.hu/'.$link, 'From: info@apolobeosztas.hu');
+            mail($request->inputEmail, 'Apolobeostas regisztráció link', 'Regisztrácios link : https://www.apolobeosztas.hu/registerLink/'.$link, 'From: info@apolobeosztas.hu');
         } catch (\Illuminate\Database\QueryException $ex) {
             $errorCode = $ex->errorInfo[1];
             if ($errorCode == 1062) return response()->json(['message'=> 'Erre az email címre már érkezett regisztrációs link, próbálja meg később'],500);

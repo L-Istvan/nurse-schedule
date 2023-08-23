@@ -22,8 +22,11 @@ class GeneticTools
      * @return int The number of working days.
      */
     public function workDay(int $year,int $month, int $last_day_in_month){
-        CarbonPeriod::macro('countWeekdays', static function () {
-            return self::this()->filter('isWeekday')->count();
+        CarbonPeriod::macro('countWeekdays', function () {
+            $filteredDays = $this->filter(function ($date) {
+                return $date->isWeekday();
+            });
+            return $filteredDays->count();
         });
         $start = $year."-".$month."-1";
         $end = (string)$year."-".$month."-".$last_day_in_month;

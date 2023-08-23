@@ -4,16 +4,11 @@ namespace App\Http\Controllers\HeadNurse;
 
 use Exception;
 use App\Models\Post;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Genetic;
-use App\Http\Controllers\Chromosome;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\GeneticTools;
 use Barryvdh\Debugbar\Facades\Debugbar;
-use App\Utils\StringSearch;
 
 class GeneticController extends Controller
 {
@@ -41,8 +36,10 @@ class GeneticController extends Controller
             } catch (Exception $ex) {
                 Debugbar::error("HIBA");
                 Debugbar::info($ex);
+                return false;
             }
         }
+        return true;
     }
 
     /**
@@ -50,24 +47,32 @@ class GeneticController extends Controller
      * @return void
      */
     public function genetic(Request $request){
-        $year = $request[0];
-        $month = $request[1];
-        $last_day_in_month = $request[2];
 
-        $g = new Genetic($year,$month,$last_day_in_month,200,0.2,10);
-        //$g->main();
-        //$this->writeToFile($g->main());
-        $this->store($g->main(),$year,$month);
-        return response("Az új beosztás elkészült");
+        $request->validate([
+            'year' => 'required|integer|numeric',
+            'month' => 'required|integer|numeric',
+            'numberOfDaysInMonth' => 'required|integer|numeric'
+        ]);
+        $request = $request->all();
+
+        $year = $request['year'];
+        $month = $request['month'];
+        $last_day_in_month = $request['numberOfDaysInMonth'];
+
+        $genetic = new Genetic($year,$month,$last_day_in_month,200,0.2,10);
+        $result = $this->store($genetic->main(),$year,$month);
+
+        if($result === false) return response()->json('Hiba történt a mentés során!', 500);
+        return response()->json('Az új beosztás elkészült!', 200);
     }
 
     public function writeToFile($arr)
     {
-        $file = fopen('/home/ubuntu/Dokumentumok/file.txt', 'w'); // Nyitás írás módra
+        $file = fopen('/home/ubuntu/Dokumentumok/file.txt', 'w');
         foreach ($arr as $item){
             foreach($item as $id){
                 foreach ($id as $day){
-                    fwrite($file, $day); // Kiírás a fájlba
+                    fwrite($file, $day);
                 }
                 fwrite($file,PHP_EOL);
             }

@@ -34,6 +34,7 @@ function showNumberOfDaysInMonth(day){
     }
 }
 
+
 //-----------------Table header------------------------
 function prev(){
     if (monthNumber == 0){
@@ -106,21 +107,63 @@ tbody.addEventListener('click', function (e) {
 });
 
 //-------- schedule planner button--------------
-function create_schedule(){
+const loadingOverlay = document.getElementById('loadingOverlay');
+
+function showLoadingOverlay() {
+  loadingOverlay.style.display = 'flex';
+  loadingOverlay.classList.add('active'); // Az "active" class hozzáadása az elemhez
+}
+
+function hideLoadingOverlay() {
+  loadingOverlay.style.display = 'none';
+  loadingOverlay.classList.remove('active'); // Az "active" class eltávolítása az elemről
+}
+
+
+function send_create_schedule(){
+    showLoadingOverlay();
     $.ajax({
         headers:{
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: 'POST',
         url: 'create_schedule',
-        data: JSON.stringify([year,monthNumber+1,getNumberOfDaysInMonth(monthNumber,year)]),
+        data: {
+            year: year,
+            month: monthNumber+1,
+            numberOfDaysInMonth: getNumberOfDaysInMonth(monthNumber,year)
+        },
+        dataType: 'json',
+        success: function(xhr){
+            toastr.success(xhr);
+            hideLoadingOverlay();
+            tableLoad();
+            //location.reload();
+        },
+        error: function(){
+            toastr.error("Hiba történt a mentés során.");
+            hideLoadingOverlay();
+        }
+    });
+}
+
+function create_schedule(){
+    $.ajax({
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        url: '/deleteActTable',
+        data: JSON.stringify([year,monthNumber+1]),
         contentType: 'application/json',
         complete: function(xhr){
             if (xhr.status == 200){
-                toastr.success(xhr.responseText);
-                emptyTable();
+                succes = true;
+                deleteColor(dayColor);
+                deleteColor(nightColor);
+                send_create_schedule();
             }
-            else toastr.error("Sikeretelen beosztás");
+            else toastr.error("Hiba történt a törlés során.");
         }
     });
 }
