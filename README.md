@@ -1,66 +1,58 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# A "Nurse Scheduling Problem" 
+Egy összetett probléma, amely a nővérek munkaidejének hatékony ütemezésével foglalkozik egészségügyi intézményekben. Célja, hogy minimalizálja a költségeket, elkerülje a túlterhelést és megfelelő betegellátást biztosítson.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Használat
 
-## About Laravel
+Látogass el a [https://angolszavaktanulas.hu][1] címre.
+  
+[1]: https://angolszavaktanulas.hu/
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## A műszakbeosztásnak számos kritériuma van
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Szabadságnapok
+  
+Általában havonta 8 - 10 napot engedélyez a munkaadó.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Szabadságnapok :
+  Általában havonta 8 - 10 napot engedélyez a munkaadó.
 
-## Learning Laravel
+### Betegszabadságnapok
+### Kérések
+ Általában 4 - 5 kérést engedélyez a munkáltató, mert meg kell maradni a megfelelő létszámnak a beosztáshoz.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Pihenő napok:
+- A dolgozó 1 napot is dolgozhat szabadnapot megelőzően (nappal – pihenő, éjszaka – pihenő) 
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- 2 munkanapot dolgozhat két egymást követő napon a szabadnapot megelőzően (nappal - nappal – pihenő, éjszaka – éjszaka – pihenő, vagy nappal - éjszaka - pihenő), 
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- 3 munkanapot dolgozhat szabadnapot követően (nappal – nappal - éjszaka vagy nappal – éjszaka – éjszaka).
 
-## Laravel Sponsors
+- Általában havi 14 műszak: Javarészt 7 nap nappal, 6 nap éjszaka szokott lenni. Mivel folyamatos munkarend van, ezért előfordulhat kevesebb műszak, mert fél éves időintervallumban szükséges az óraszám letöltése. Ez azért lehet így, mert folyamatos munkarendnél 12 órás műszakok vannak, ami nem fogja azt a negyven órás munkahetet egy hónapba visszaadni. Mindig a ledolgozandó óraszám szükséges 40 órás munkahéttel számolva (a ledolgozandó napok számától függ, lehet 20 nap 160 óra, lehet 21nap 168 óra, 22 nap 176 óra, 23 nap 184 óra). Ezeket az óraszámokat rövidítheti egy – egy ünnep ami, 8 órával levonódik. A főnővér vonja le minden nővértől, illetve gondozótól az adott hónap óraszámából. Ebből is látszik, hogy ezért adnak bizonyos időintervallumokat, hogy minden dolgozónak kijöjjön a megfelelő óraszám. A plusz és mínusz órákat így lehet kiegyenlíteni az időszak végére.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+### A műszakbeosztáshoz tartozó algoritmus célja 
+A kritériumokat figyelembe véve olyan beosztást állítson össze, ami minden nővér számára egységesen optimális, és próbálja elkerülni, hogy néhány nővér túlzott terhelés alá kerüljön. Egy példa: olyan munkarendet készítsen, ahol elkerüli, hogy egy alkalmazott a hónap első felében nagyobb terhelést kapjon, majd a második felében kevesebbet dolgozzon.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Az algoritmus működését összefoglalva
+Tapasztalataim szerint az egyszerű hagyományos genetikus algoritmus (GA) hosszú futási időt igényelt az optimális megoldás konzisztens eléréséhez. 
+A fentiek eredményeként saját 'hibrid' algoritmust dolgoztam ki az ütemezés terén. Ez a speciális algoritmus rövidebb futási idő mellett képes az optimális beosztás kialakítására.
+Legfontosabb változtatás a rövidebb futási idő érdekében, ha már a kezdetleges populációban az első beosztást  a legnagyobb kockázattal rendelkező egyed kapja meg. Vegyük példának azt az esetet, amikor egy dolgozó fél hónapig nem tud dolgozni. Ebben az esetben a kockázat számítás alapján az adott dolgozóhoz egy „kockázati” érték kerül rendelésre, illetve előre kiszámolt óra szám szerint rendel hozzá nappalt és éjszakai beosztást. Ezenfelül előre kiszámított óraszám alapján kerülnek meghatározásra a nappali és éjszakai műszakok az adott dolgozó beosztásában. 
 
-## Contributing
+### Webalkalmazás további funkciói rövid leírása
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Autentikáció:**
+Az alkalmazás autentikációs rendszere gondoskodik arról, hogy minden felhasználó megfelelő szerepkörhöz legyen hozzárendelve, például főnővér vagy nővér, és lehetővé teszi számukra a megfelelő csoporthoz csatlakozni, hogy a megfelelő beosztást kapja meg.
+	
+**Főnővér hitelesítés utáni felület** 
+Ezen a felületen a felhasználó megtekintheti a dolgozók havi munkarendjét és pihenőnapjait. A felület számos további hasznos funkciót kínál, például a beosztás kézi módosítását, mentését, vagy törlését, továbbá az automatikus beosztás generálását. Lehetőség van dolgozók regisztrálására is. Ezen kívül elérhetővé válnak a beállítások, ahol a felhasználó különböző megszorításokat alkothat a dolgozók számára, valamint finomhangolhatja a beosztás készítő algoritmust.
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Nővér hitelesítés utáni felület**
+ Ezen a felületen a felhasználó megtekintheti saját beosztását, és lehetősége van szabadság, betegszabadság vagy pihenőnap jelölésére azon napokra, amelyeken nem tud dolgozni."
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
