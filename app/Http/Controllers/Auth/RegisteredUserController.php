@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\schedule_settings;
+use App\Models\Setting;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -36,6 +38,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+
+
         $user = User::create([
             'group_id' => 0,
             'name' => $request->name,
@@ -47,6 +51,40 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        $user_id = Auth::user()->id;
+        $user->group_id = $user_id;
+        $user->update();
+
+        schedule_settings::create([
+            'group_id' => $user_id,
+            'n' => 1,
+            'e' => 1,
+            'nn' => 1,
+            'ee' => 1,
+            'ne' => 1,
+            'nne' => 1,
+            'nee' => 1,
+            'nnn' => 0,
+            'eee' => 0,
+            'folytonos' => 0
+        ]);
+
+        Setting::create([
+            'group_id' => $user_id,
+            'person_id' => $user_id,
+            'maxYearHoliday' => 31,
+            'currentYearHoliday' => 0,
+            'maxMonthHoliday' => 10,
+            'currentMonthHoliday' => 0,
+            'maxPetitons' => 5,
+            'currentPetitons' => 0,
+            'sickLeaves' => 400,
+            'numberOfDays' => 7,
+            'numberOfNights' => 6,
+            'maxNumberOfWorkersInOnday' => 4,
+            'minNumberOfWorkersInOnday' => 1,
+        ]);
 
         return redirect(RouteServiceProvider::HOME);
     }

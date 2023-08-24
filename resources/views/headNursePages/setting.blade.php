@@ -10,7 +10,6 @@
             </ul>
         </div>
 
-
     <div class="row ml-auto mr-auto" style="max-width: 1920px">
         <div class="col-12 col-md-6 col-xl-6">
             <h1 class="underline-extended">Munka Beosztás</h1>
@@ -22,7 +21,7 @@
                 <div>
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="maxWorkerInOneDay" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{$setting[0]->maxNumberOfWorkersInOnday}}
+                            {{$setting ? $setting->maxNumberOfWorkersInOnday : 0}}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             @for ($i=1;$i<=10;$i++)
@@ -41,7 +40,7 @@
             <div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="minWorkerInOneDay" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{$setting[0]->minNumberOfWorkersInOnday}}
+                        {{$setting ? $setting->minNumberOfWorkersInOnday : 0}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         @for ($i=1;$i<=10;$i++)
@@ -60,7 +59,7 @@
             <div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="day" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {{$setting[0]->numberOfDays}}
+                      {{ $setting ? $setting->numberOfDays : 0}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         @for ($i=1;$i<=10;$i++)
@@ -79,7 +78,7 @@
             <div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="night" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{$setting[0]->numberOfNights}}
+                        {{ $setting ? $setting->numberOfNights : 0}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         @for ($i=1;$i<=10;$i++)
@@ -98,7 +97,7 @@
             <div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="night" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{$setting[0]->numberOfNights}}
+                        {{ $setting ? $setting->numberOfNights : 0}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         @for ($i=1;$i<=10;$i++)
@@ -118,7 +117,7 @@
             <div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="holidayAllowanceForOneYear" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{$setting[0]->maxYearHoliday}}
+                        {{ $setting ? $setting->maxYearHoliday : 0}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         @for ($i=25;$i<=35;$i++)
@@ -136,7 +135,7 @@
             <div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="holidayAllowanceForOneMonth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{$setting[0]->maxMonthHoliday}}
+                        {{ $setting ? $setting->maxMonthHoliday : 0}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         @for ($i=5;$i<=15;$i++)
@@ -156,7 +155,7 @@
             <div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="restDayAllowanceForOneMonth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{$setting[0]->maxPetitons}}
+                        {{ $setting ? $setting->maxPetitons : 0}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         @for ($i=1;$i<=10;$i++)
@@ -166,7 +165,7 @@
                 </div>
               </div>
             </div>
-    </div>
+          </div>
         <!----------------------------------- rigth column --------------------------------------------------->
         <div class="col-0 col-md-6 col-xl-6">
 
@@ -223,18 +222,6 @@
                             </label>
                         </div>
                     </div>
-
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="en" @if ($check['en']) checked @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
-                                X-<strong>éjszaka</strong>-<strong>nappal-</strong>X
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mt-3">
                     <div class="col-6">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="nne" @if ($check['nne']) checked @endif>
@@ -243,6 +230,9 @@
                             </label>
                         </div>
                     </div>
+                </div>
+
+                <div class="row mt-3">
                     <div class="col-6">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="nee" @if ($check['nee']) checked @endif>
@@ -251,9 +241,6 @@
                             </label>
                         </div>
                     </div>
-                </div>
-
-                <div class="row mt-3">
                     <div class="col-6">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="nnn" @if ($check['nnn']) checked @endif>
@@ -262,49 +249,15 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-6">
+                </div>
+
+                <div class="row mt-3">
+
+                    <div class="col-12">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="eee" @if ($check['eee']) checked @endif>
                             <label class="form-check-label" for="flexCheckDefault">
                                 X-<strong>éjszaka</strong>-<strong>éjszaka-</strong><strong>éjszaka</strong>-X
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="enn" @if ($check['enn']) checked @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
-                                X-<strong>éjszaka</strong>-<strong>nappal-</strong><strong>nappal</strong>-X
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="een" @if ($check['een']) checked @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
-                                X-<strong>éjszaka</strong>-<strong>éjszaka-</strong><strong>nappal</strong>-X
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="nen" @if ($check['nen']) checked @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
-                                X-<strong>nappal</strong>-<strong>éjszaka-</strong><strong>nappal</strong>-X
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="ene" @if ($check['ene']) checked @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
-                                X-<strong>éjszaka</strong>-<strong>nappal-</strong><strong>éjszaka</strong>-X
                             </label>
                         </div>
                     </div>

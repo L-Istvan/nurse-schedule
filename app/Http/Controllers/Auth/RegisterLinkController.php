@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\View\View;
 use App\Models\UniqueLink;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
-use Barryvdh\Debugbar\Facades\Debugbar;
 
 class RegisterLinkController extends Controller
 {
@@ -55,11 +55,26 @@ class RegisterLinkController extends Controller
 
         try{
             event(new Registered($user));
-            return response('Sikeres regisztráció',200);
         }catch(\Exception $ex){
             $errorCode = $ex->getCode();
             return response("valami hiba történt, próbálja meg később");
         }
+
+        Setting::create([
+            'group_id' => $data->group_id,
+            'person_id' => $user->id,
+            'maxYearHoliday' => 31,
+            'currentYearHoliday' => 0,
+            'maxMonthHoliday' => 10,
+            'currentMonthHoliday' => 0,
+            'maxPetitons' => 5,
+            'currentPetitons' => 0,
+            'sickLeaves' => 400,
+            'numberOfDays' => 7,
+            'numberOfNights' => 6,
+            'maxNumberOfWorkersInOnday' => 4,
+            'minNumberOfWorkersInOnday' => 1,
+        ]);
 
         return redirect(RouteServiceProvider::HOME);
     }

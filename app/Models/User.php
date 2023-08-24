@@ -80,7 +80,9 @@ class User extends Authenticatable
     }
 
     static public function getUserbyGroupId($group_id){
-        return self::where('group_id',$group_id)->get();
+        return self::where('group_id',$group_id)
+            ->where('role','nurse')
+            ->get();
     }
 
     static public function deleteUserbyEmailAndName($email,$name){
@@ -93,6 +95,7 @@ class User extends Authenticatable
 
     static public function getUserIdAndNamebyUser($group_id){
         return self::where('group_id',$group_id)
+        ->where('role','nurse')
         ->select('id','name')->get();
     }
 
@@ -107,7 +110,9 @@ class User extends Authenticatable
     }
 
     static public function getPersonId($group_id){
-        return self::where('group_id',$group_id)->pluck('id');
+        return self::where('group_id',$group_id)
+            ->where('role','nurse')
+            ->pluck('id');
     }
 
     public static function getGroup_id($person_id){

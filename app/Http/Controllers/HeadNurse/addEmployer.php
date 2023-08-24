@@ -14,7 +14,8 @@ class addEmployer extends Controller
 {
     public function index()
     {
-        return view('/headNursePages/addEmployer', ['users' => User::getUserbyGroupId(Auth::user()->id)]);
+        return view('/headNursePages/addEmployer',
+        ['users' => User::getUserbyGroupId(Auth::user()->id)]);
     }
 
     public function destroy(Request $request)

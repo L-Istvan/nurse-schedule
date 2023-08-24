@@ -9,4 +9,17 @@ class schedule_settings extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'group_id',
+        'n',
+        'e',
+        'nn',
+        'ee',
+        'ne',
+        'nne',
+        'nee',
+        'nnn',
+        'eee',
+        'folytonos'
+    ];
 }
