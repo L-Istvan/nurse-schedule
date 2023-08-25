@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (selectedOption.id === 'nurse') {
             inputEmail.value = "NoverBemutator@gmail.com";
         }
-        inputPassword.value = 'Fonover123456';
+        inputPassword.value = 'Apolo123456';
         buttonLogin.click();
     });
 });
