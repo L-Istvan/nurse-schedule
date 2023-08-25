@@ -10,11 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (selectedOption.id === 'headNurse') {
             inputEmail.value = "FonoverBemutato@gmail.com";
-            inputPassword.value = '123456';
         } else if (selectedOption.id === 'nurse') {
             inputEmail.value = "NoverBemutator@gmail.com";
-            inputPassword.value = '123456';
         }
+        inputPassword.value = 'Fonover123456';
         buttonLogin.click();
     });
 });

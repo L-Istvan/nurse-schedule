@@ -4,7 +4,6 @@ function confirmDelete() {
     }
     else {
       event.preventDefault();
-      console.log("nem");
       return false;
     }
   }
