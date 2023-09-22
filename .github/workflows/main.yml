@@ -14,4 +14,4 @@ jobs:
         server: ftp.nethely.hu
         username: Istvan1000
         password: ${{ secrets.ftp_password }}
-        local-dir: /Luna/
+        local-dir: /nurse-schedule 
